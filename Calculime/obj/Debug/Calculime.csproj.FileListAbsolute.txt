@@ -1,0 +1,9 @@
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\bin\Debug\Calculime.exe.config
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\bin\Debug\Calculime.exe
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\bin\Debug\Calculime.pdb
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\obj\Debug\Calculime.csprojResolveAssemblyReference.cache
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\obj\Debug\Calculime.Properties.Resources.resources
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\obj\Debug\Calculime.csproj.GenerateResource.Cache
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\obj\Debug\Calculime.exe
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\obj\Debug\Calculime.pdb
+C:\Users\Dan\OneDrive\Creations\Coding\Visual Studio\Calculime\Calculime\obj\Debug\Calculime.MainGUI.resources
