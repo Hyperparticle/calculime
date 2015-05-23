@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Calculime.DataStructures.Values;
+
 namespace Calculime.Operations.BinaryOperations
 {
     public class Divide : BinaryOperation
     {
         public Divide()
         {
-            precedence = LOW;
-            symbol = "/";
+            Precedence = LOW;
+            Symbol = "/";
         }
 
         public override Value executeBinary(Value value1, Value value2)

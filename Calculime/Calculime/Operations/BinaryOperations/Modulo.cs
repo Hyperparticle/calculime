@@ -8,17 +8,17 @@ using Calculime.DataStructures.Values;
 
 namespace Calculime.Operations.BinaryOperations
 {
-    public class Multiply : BinaryOperation
+    public class Modulo : BinaryOperation
     {
-        public Multiply()
+        public Modulo()
         {
             Precedence = LOW;
-            Symbol = "*";
+            Symbol = "%";
         }
 
         public override Value executeBinary(Value value1, Value value2)
         {
-            return value1.multiply(value2);
+            return value1.modulo(value2);
         }
     }
 }

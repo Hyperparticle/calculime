@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculime.Operations
+namespace Calculime.DataStructures.Values
 {
     class DecimalValue : Value
     {
@@ -91,6 +91,17 @@ namespace Calculime.Operations
         {
             double result = value * PERCENT;
             return new DecimalValue(result);
+        }
+
+        public Value factorial()
+        {
+            return fact(value);
+        }
+
+        private double fact(double other)
+        {
+            if (other == 1) return 1;
+            return other * fact(other-1);
         }
 
         public string addDigit(string number, string digit)

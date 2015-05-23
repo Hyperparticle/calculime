@@ -61,12 +61,30 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataStructures\Token.cs" />
+    <Compile Include="ExpressionParser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Operations\BinaryOperations\Add.cs" />
+    <Compile Include="Operations\BinaryOperations\BinaryOperation.cs" />
+    <Compile Include="Operations\BinaryOperations\Divide.cs" />
+    <Compile Include="Operations\BinaryOperations\Modulo.cs" />
+    <Compile Include="Operations\BinaryOperations\Multiply.cs" />
+    <Compile Include="Operations\BinaryOperations\Subtract.cs" />
+    <Compile Include="DataStructures\Values\DecimalValue.cs" />
+    <Compile Include="DataStructures\OperationStack.cs" />
+    <Compile Include="DataStructures\OperandQueue.cs" />
+    <Compile Include="Operations\Operation.cs" />
+    <Compile Include="Operations\UnaryOperations\Inverse.cs" />
+    <Compile Include="Operations\UnaryOperations\Negate.cs" />
+    <Compile Include="Operations\UnaryOperations\Square.cs" />
+    <Compile Include="Operations\UnaryOperations\SquareRoot.cs" />
+    <Compile Include="Operations\UnaryOperations\UnaryOperation.cs" />
+    <Compile Include="DataStructures\Values\Value.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Operations\MultiOperations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

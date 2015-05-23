@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Calculime.DataStructures.Values;
+
 namespace Calculime.Operations.UnaryOperations
 {
     public class SquareRoot : UnaryOperation
     {
         public SquareRoot()
         {
-            symbol = "SQRT";
+            Symbol = "SQRT";
         }
 
         public override Value executeUnary(Value value)

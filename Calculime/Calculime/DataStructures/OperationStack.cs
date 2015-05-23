@@ -3,41 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Calculime.Operations;
 
-namespace Calculime.Operations
+namespace Calculime.DataStructures
 {
     /**
      * Wrapper class for a stack
      */
-    public class OperandStack
+    public class OperationStack
     {
-        private Stack<Value> stack;
+        private Stack<Operation> stack;
 
-        public OperandStack() 
-        { 
-          stack = new Stack<Value>(); 
+        public OperationStack() 
+        {
+            stack = new Stack<Operation>(); 
         }
 
-        public Value pop()
+        public Operation Pop()
         {
             return stack.Pop();
         }
-        public void push(Value value)
+        public void Push(Operation value)
         {
             stack.Push(value);
         }
 
-        public Value peek()
+        public Operation Peek()
         {
-            return (Value)stack.Peek();
+            return stack.Peek();
         }
 
-        public bool empty()
+        public bool Empty()
         {
             return stack.Count == 0;
         }
 
-        public void clear()
+        public void Clear()
         {
             stack.Clear();
         }

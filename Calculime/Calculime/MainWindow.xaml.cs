@@ -20,14 +20,20 @@ namespace Calculime
     /// </summary>
     public partial class MainWindow : Window
     {
+        ExpressionParser parser;
+
         public MainWindow()
         {
+            parser = new ExpressionParser();
+
             InitializeComponent();
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(e.ToString());
+            string expression = InputTextBox.Text;
+            parser.Parse(expression);
+            OutputTextBlock.Text = "" + parser.Evaluate();
         }
     }
 }

@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Calculime.DataStructures.Values;
+
 namespace Calculime.Operations.BinaryOperations
 {
     public class Add : BinaryOperation
     {
         public Add()
         {
-            precedence = LOW;
-            symbol = "+";
+            Symbol = "+";
+            Precedence = LOW;
+            LeftAssociative = true;
         }
 
         public override Value executeBinary(Value value1, Value value2)

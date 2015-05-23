@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Calculime.DataStructures;
+
 namespace Calculime.Operations
 {
     public abstract class Operation
@@ -18,18 +20,13 @@ namespace Calculime.Operations
         public static int LOW = 2;
         public static int LOWEST = 1;
 
-        public int precedence { get;  protected set; }
-        public string symbol { protected get; set; }
-        protected OperandStack stack;
-        
-        public Operation()
-        {
-
-        }
+        public int Precedence { get;  protected set; }
+        public bool LeftAssociative { get; set; }
+        public string Symbol { protected get; set; }
 
         public override string ToString()
         {
-            return symbol;
+            return Symbol;
         }
 
         public abstract void execute();

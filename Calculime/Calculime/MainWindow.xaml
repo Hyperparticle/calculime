@@ -1,11 +1,12 @@
 ﻿<Window x:Class="Calculime.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Calculime" Height="350" Width="500" Icon="Resources/favicon.ico">
-
+        Title="Calculime" Height="350" Width="250" Icon="Resources/favicon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    
     <StackPanel Margin="20">
-        <TextBox Height="23" x:Name="InputTextBox" TextWrapping="Wrap" Text="Input Here"/>
+        <TextBox Height="23" x:Name="InputTextBox" TextWrapping="Wrap"/>
         <Button Content="Calculate" x:Name="CalculateButton" Click="CalculateButton_Click"/>
-        <TextBlock x:Name="OutputTextBlock" TextWrapping="Wrap" Text="Output Here" Height="63"/>
+        <TextBlock x:Name="OutputTextBlock" TextWrapping="Wrap" Text="Output Here" Height="20"/>
     </StackPanel>
+    
 </Window>

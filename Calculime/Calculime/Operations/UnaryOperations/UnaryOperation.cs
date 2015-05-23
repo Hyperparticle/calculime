@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Calculime.DataStructures.Values;
+
 namespace Calculime.Operations.UnaryOperations
 {
     public abstract class UnaryOperation : Operation
     {
         public UnaryOperation()
         {
-            precedence = HIGH;
-        }
-
-        public override void execute()
-        {
-            //Exchange old value for new
-            stack.push(executeUnary(stack.pop()));
+            Precedence = HIGH;
         }
 
         public abstract Value executeUnary(Value value);
