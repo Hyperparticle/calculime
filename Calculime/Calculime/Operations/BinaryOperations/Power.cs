@@ -8,18 +8,17 @@ using Calculime.DataStructures.Values;
 
 namespace Calculime.Operations.BinaryOperations
 {
-    public class Subtract : BinaryOperation
+    public class Power : BinaryOperation
     {
-        public Subtract()
+		public Power()
         {
-            Symbol = "-";
             Precedence = LOW;
-            LeftAssociative = true;
+            Symbol = "^";
         }
 
         public override Value executeBinary(Value value1, Value value2)
         {
-            return value1 - value2;
+            return value1 ^ value2;
         }
     }
 }

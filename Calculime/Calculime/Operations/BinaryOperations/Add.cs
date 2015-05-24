@@ -19,7 +19,7 @@ namespace Calculime.Operations.BinaryOperations
 
         public override Value executeBinary(Value value1, Value value2)
         {
-            return value1.add(value2);
+            return value1 + value2;
         }
     }
 }

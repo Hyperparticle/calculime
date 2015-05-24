@@ -4,7 +4,7 @@
         Title="Calculime" Height="350" Width="250" Icon="Resources/favicon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     
     <StackPanel Margin="20">
-        <TextBox Height="23" x:Name="InputTextBox" TextWrapping="Wrap"/>
+        <TextBox Height="23" x:Name="InputTextBox" TextWrapping="Wrap" KeyDown="InputTextBox_KeyDown"/>
         <Button Content="Calculate" x:Name="CalculateButton" Click="CalculateButton_Click"/>
         <TextBlock x:Name="OutputTextBlock" TextWrapping="Wrap" Text="Output Here" Height="20"/>
     </StackPanel>

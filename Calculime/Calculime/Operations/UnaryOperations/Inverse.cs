@@ -17,7 +17,8 @@ namespace Calculime.Operations.UnaryOperations
 
         public override Value executeUnary(Value value)
         {
-            return value.inverse();
+			value.Val = 1 / value.Val;
+			return value;
         }
     }
 }

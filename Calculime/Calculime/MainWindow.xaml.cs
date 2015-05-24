@@ -31,9 +31,21 @@ namespace Calculime
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            string expression = InputTextBox.Text;
-            parser.Parse(expression);
-            OutputTextBlock.Text = "" + parser.Evaluate();
+			Calculate();
         }
+
+		private void InputTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				Calculate();
+			}
+		}
+
+		private void Calculate()
+		{
+			string expression = InputTextBox.Text;
+			OutputTextBlock.Text = parser.Parse(expression);
+		}
     }
 }

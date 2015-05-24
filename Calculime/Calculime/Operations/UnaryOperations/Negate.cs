@@ -17,7 +17,7 @@ namespace Calculime.Operations.UnaryOperations
 
         public override Value executeUnary(Value value)
         {
-            return value.negate();
+            return -value;
         }
     }
 }

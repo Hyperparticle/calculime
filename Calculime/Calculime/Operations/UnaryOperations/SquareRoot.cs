@@ -17,7 +17,8 @@ namespace Calculime.Operations.UnaryOperations
 
         public override Value executeUnary(Value value)
         {
-            return value.squareRoot();
+			value.Val = Math.Sqrt(value.Val);
+            return value;
         }
     }
 }

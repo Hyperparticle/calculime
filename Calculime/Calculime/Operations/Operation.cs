@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Calculime.DataStructures;
+using Calculime.DataStructures.Values;
 
 namespace Calculime.Operations
 {
@@ -23,12 +24,13 @@ namespace Calculime.Operations
         public int Precedence { get;  protected set; }
         public bool LeftAssociative { get; set; }
         public string Symbol { protected get; set; }
+		public bool IsBinary { get; set; }
+
+		public abstract Value execute(params Value[] values);
 
         public override string ToString()
         {
             return Symbol;
         }
-
-        public abstract void execute();
     }
 }

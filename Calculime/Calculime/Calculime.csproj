@@ -61,7 +61,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataStructures\Tree\ExpressionQueue.cs" />
+    <Compile Include="DataStructures\Tree\ExpressionTree.cs" />
     <Compile Include="DataStructures\Token.cs" />
+    <Compile Include="DataStructures\Tree\Node.cs" />
+    <Compile Include="DataStructures\Tree\ValueStack.cs" />
+    <Compile Include="DataStructures\Tree\OperationStack.cs" />
+    <Compile Include="DataStructures\Values\DecimalValue.cs" />
     <Compile Include="ExpressionParser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -73,11 +79,9 @@
     <Compile Include="Operations\BinaryOperations\BinaryOperation.cs" />
     <Compile Include="Operations\BinaryOperations\Divide.cs" />
     <Compile Include="Operations\BinaryOperations\Modulo.cs" />
+    <Compile Include="Operations\BinaryOperations\Power.cs" />
     <Compile Include="Operations\BinaryOperations\Multiply.cs" />
     <Compile Include="Operations\BinaryOperations\Subtract.cs" />
-    <Compile Include="DataStructures\Values\DecimalValue.cs" />
-    <Compile Include="DataStructures\OperationStack.cs" />
-    <Compile Include="DataStructures\OperandQueue.cs" />
     <Compile Include="Operations\Operation.cs" />
     <Compile Include="Operations\UnaryOperations\Inverse.cs" />
     <Compile Include="Operations\UnaryOperations\Negate.cs" />

@@ -5,25 +5,59 @@ using System.Text;
 
 namespace Calculime.DataStructures.Values
 {
-    public interface Value
+    public abstract class Value
     {
-        // Binary operations
-        Value add(Value other);
-        Value subtract(Value other);
-        Value multiply(Value other);
-        Value divide(Value other);
-        Value modulo(Value other);
-        Value exponentiate(Value other);
+		public double Val { get; set; }
 
-        // Unary operations
-        Value negate();
-        Value squareRoot();
-        Value inverse();
-        Value percent();
-        Value factorial();
+		// Value Operators
+		public static Value operator +(Value value1, Value value2)
+		{
+			value1.Val += value2.Val;
+			return value1;
+		}
 
-        // Value methods
-        Value create(string s);
-        string addDigit(string number, string digit);
+		public static Value operator -(Value value1, Value value2)
+		{
+			value1.Val -= value2.Val;
+			return value1;
+		}
+
+		public static Value operator -(Value value)
+		{
+			value.Val = -value.Val;
+			return value;
+		}
+
+		public static Value operator *(Value value1, Value value2)
+		{
+			value1.Val *= value2.Val;
+			return value1;
+		}
+
+		public static Value operator /(Value value1, Value value2)
+		{
+			try
+			{
+				value1.Val /= value2.Val;
+			}
+			catch (ArithmeticException e)
+			{
+				Console.WriteLine(e.StackTrace);
+			}
+			
+			return value1;
+		}
+
+		public static Value operator %(Value value1, Value value2)
+		{
+			value1.Val %= value2.Val;
+			return value1;
+		}
+
+		public static Value operator ^(Value value1, Value value2)
+		{
+			value1.Val = Math.Pow(value1.Val, value2.Val);
+			return value1;
+		}
     }
 }

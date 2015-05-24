@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Calculime.DataStructures
+namespace Calculime.DataStructures.Tree
 {
-    /**
+	/**
      * Wrapper class for a queue
      */
-    public class ExpressionQueue
-    {
+	class ExpressionQueue
+	{
         private Queue<Token> queue;
 
         public ExpressionQueue() 
@@ -42,5 +42,5 @@ namespace Calculime.DataStructures
         {
             queue.Clear();
         }
-     }
+	}
 }

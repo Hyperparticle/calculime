@@ -14,11 +14,40 @@ namespace Calculime.DataStructures
     {
         private string token;
 
+		// Use this dictionary to map string operators to their respective functions
+		public static Dictionary<string, Operation> operationDict = new Dictionary<string, Operation>()
+		{
+			{ "+", new Add() },
+			{ "-", new Subtract() },
+			{ "*", new Multiply() },
+			{ "/", new Divide() },
+			{ "^", new Power() },
+			{ "%", new Modulo() }
+		};
+
         public Token(string tok)
         {
             token = tok;
             EvaluateToken();
         }
+
+		public Token(Value value)
+		{
+			token = value.ToString();
+			Value = value;
+
+			IsValue = true;
+			IsOperation = false;
+		}
+
+		public Token(Operation operation)
+		{
+			token = operation.ToString();
+			Operation = operation;
+
+			IsValue = false;
+			IsOperation = true;
+		}
 
         private void EvaluateToken()
         {
@@ -26,28 +55,18 @@ namespace Calculime.DataStructures
             if (double.TryParse(token, out val))
             {
                 Value = new DecimalValue(val);
-                Type = Value.GetType();
 
                 IsValue = true;
                 IsOperation = false;
             }
             else
             {
-                Operation = ParseOperation();
-                Type = Operation.GetType();
+				Operation op;
+				operationDict.TryGetValue(token, out op);
+				Operation = op;
 
                 IsValue = false;
                 IsOperation = true;
-            }
-        }
-
-        private Operation ParseOperation()
-        {
-            switch (token)
-            {
-                case "+": return new Add();
-                case "-": return new Subtract();
-                default: Console.WriteLine("Error: Invalid Operator."); return null;
             }
         }
 
@@ -56,7 +75,5 @@ namespace Calculime.DataStructures
 
         public bool IsValue { get; set; }
         public bool IsOperation { get; set; }
-
-        public Type Type { get; set; }
     }
 }
