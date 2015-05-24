@@ -33,7 +33,7 @@ namespace Calculime.DataStructures.Tree
 			string pattern = "(" + String.Join("|", Token.OPERATORS.Select(d => Regex.Escape(d)).ToArray()) + ")";
 			List<string> tokens = Regex.Split(infixExpression, pattern).ToList();
 
-			// Use Shunting Yard Algorithm to generate postfix expression
+			// Use Shunting Yard Algorithm to generate a postfix expression
 			foreach (string token in tokens)
 			{
 				ParseToken(new Token(token));
@@ -56,10 +56,15 @@ namespace Calculime.DataStructures.Tree
 			{
 				Operation operation = token.Operation;
 
-				while (!operationStack.Empty() && operation.Precedence <= operationStack.Peek().Precedence)
+				while (!operationStack.Empty())
 				{
-					Token op = new Token(operationStack.Pop());
-					expressionQueue.Enqueue(op);
+					if (operation.LeftAssociative && operation.Precedence <= operationStack.Peek().Precedence ||
+						!operation.LeftAssociative && operation.Precedence < operationStack.Peek().Precedence)
+					{
+						Token op = new Token(operationStack.Pop());
+						expressionQueue.Enqueue(op);
+					}
+					else break;
 				}
 
 				operationStack.Push(operation);

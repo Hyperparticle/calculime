@@ -13,7 +13,7 @@ namespace Calculime.Operations.BinaryOperations
         public Subtract()
         {
             Symbol = "-";
-            Precedence = LOW;
+            Precedence = (int)Operation.Priority.low;
             LeftAssociative = true;
         }
 

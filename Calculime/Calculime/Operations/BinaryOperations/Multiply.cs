@@ -12,8 +12,9 @@ namespace Calculime.Operations.BinaryOperations
     {
         public Multiply()
         {
-            Precedence = LOW;
             Symbol = "*";
+			Precedence = (int)Operation.Priority.medium;
+			LeftAssociative = true;
         }
 
         public override Value executeBinary(Value value1, Value value2)

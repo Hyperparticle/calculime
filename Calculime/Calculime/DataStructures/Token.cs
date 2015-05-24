@@ -72,10 +72,10 @@ namespace Calculime.DataStructures
             }
         }
 
-        public Value Value { get; set; }
-        public Operation Operation { get; set; }
+        public Value Value { get; protected set; }
+        public Operation Operation { get; protected set; }
 
-        public bool IsValue { get; set; }
-        public bool IsOperation { get; set; }
+        public bool IsValue { get; protected set; }
+        public bool IsOperation { get; protected set; }
     }
 }
