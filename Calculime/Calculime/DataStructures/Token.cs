@@ -12,6 +12,8 @@ namespace Calculime.DataStructures
 {
     public class Token
     {
+		public static string[] OPERATORS = { "+", "-", "*", "/", "^", "%" };
+
         private string token;
 
 		// Use this dictionary to map string operators to their respective functions

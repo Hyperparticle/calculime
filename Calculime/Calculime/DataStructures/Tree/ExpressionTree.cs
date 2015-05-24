@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Calculime.Operations;
 using Calculime.DataStructures.Values;
+using System.Text.RegularExpressions;
 
 namespace Calculime.DataStructures.Tree
 {
@@ -28,7 +29,9 @@ namespace Calculime.DataStructures.Tree
 
         public void Build(string infixExpression)
 		{
-			List<string> tokens = infixExpression.Split(' ').ToList();
+			// Create a regex based on the token operators, and create a list of tokens
+			string pattern = "(" + String.Join("|", Token.OPERATORS.Select(d => Regex.Escape(d)).ToArray()) + ")";
+			List<string> tokens = Regex.Split(infixExpression, pattern).ToList();
 
 			// Use Shunting Yard Algorithm to generate postfix expression
 			foreach (string token in tokens)
