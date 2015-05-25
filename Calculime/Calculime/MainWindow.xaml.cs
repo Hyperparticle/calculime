@@ -45,7 +45,19 @@ namespace Calculime
 		private void Calculate()
 		{
 			string expression = InputTextBox.Text;
+
+			HistoryListView.Items.Add(new MyItem { Id = expression });
 			OutputTextBlock.Text = parser.Parse(expression);
+		}
+
+		public class MyItem
+		{
+			public string Id { get; set; }
+		}
+
+		private void HistoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
     }
 }
