@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using Calculime.DataStructures.Values;
 
 namespace Calculime.DataStructures.Tree
@@ -13,35 +8,35 @@ namespace Calculime.DataStructures.Tree
      */
 	public class ValueStack
 	{
-		private Stack<Value> stack;
+		private readonly Stack<Value> _stack;
 
 		public ValueStack()
 		{
-			stack = new Stack<Value>();
+			_stack = new Stack<Value>();
 		}
 
 		public Value Pop()
 		{
-			return stack.Pop();
+			return _stack.Pop();
 		}
 		public void Push(Value value)
 		{
-			stack.Push(value);
+			_stack.Push(value);
 		}
 
 		public Value Peek()
 		{
-			return stack.Peek();
+			return _stack.Peek();
 		}
 
 		public bool Empty()
 		{
-			return stack.Count == 0;
+			return _stack.Count == 0;
 		}
 
 		public void Clear()
 		{
-			stack.Clear();
+			_stack.Clear();
 		}
 	}
 }

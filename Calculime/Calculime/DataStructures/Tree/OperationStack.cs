@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Calculime.Operations;
+﻿using System.Collections.Generic;
+using Calculime.Tokens;
 
 namespace Calculime.DataStructures.Tree
 {
@@ -13,35 +8,35 @@ namespace Calculime.DataStructures.Tree
      */
 	public class OperationStack
 	{
-		private Stack<Token> stack;
+		private readonly Stack<Token> _stack;
 
 		public OperationStack()
 		{
-            stack = new Stack<Token>();
+            _stack = new Stack<Token>();
 		}
 
         public Token Pop()
 		{
-			return stack.Pop();
+			return _stack.Pop();
 		}
         public void Push(Token value)
 		{
-			stack.Push(value);
+			_stack.Push(value);
 		}
 
         public Token Peek()
 		{
-			return stack.Peek();
+			return _stack.Peek();
 		}
 
 		public bool Empty()
 		{
-			return stack.Count == 0;
+			return _stack.Count == 0;
 		}
 
 		public void Clear()
 		{
-			stack.Clear();
+			_stack.Clear();
 		}
 	}
 }

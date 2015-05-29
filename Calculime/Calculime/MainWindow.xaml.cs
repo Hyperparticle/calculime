@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Calculime
 {
@@ -20,87 +11,120 @@ namespace Calculime
     /// </summary>
     public partial class MainWindow : Window
     {
-        ExpressionParser parser;
+        private readonly ExpressionParser _parser;
 
         public MainWindow()
         {
-            parser = new ExpressionParser();
+            _parser = new ExpressionParser();
 
             InitializeComponent();
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-			Calculate();
+			Calculate(true);
+            InputTextBox.Focus();
         }
 
 		private void InputTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.Enter)
+		    var keyPressed = e.Key;
+
+			if (keyPressed == Key.Enter)
 			{
-				Calculate();
+				Calculate(true);
 			}
 		}
 
-		private void Calculate()
+		private void Calculate(bool showHistory)
 		{
-			string expression = InputTextBox.Text;
+			var expression = InputTextBox.Text;
 
-			OutputTextBlock.Text = parser.Parse(expression);
-			HistoryListView.Items.Add(new HistoryItem { Id = expression + '=' + OutputTextBlock.Text});
+		    try
+		    {
+		        var result = _parser.Parse(expression);
+                OutputTextBlock.Text = result;
+		        InputTextBox.Background = SystemColors.WindowBrush;
+
+                if (showHistory)
+                {
+                    HistoryListView.Items.Add(new HistoryItem { Id = expression + '=' + OutputTextBlock.Text });
+                }
+		    }
+		    catch (Exception e)
+		    {
+		        InputTextBox.Background = Brushes.IndianRed;
+		    }
 		}
 
 		private void ClearButton_Click(object sender, RoutedEventArgs e)
 		{
 			InputTextBox.Text = "";
+
+            InputTextBox.Focus();
 		}
 
 		private void DeleteButton_Click(object sender, RoutedEventArgs e)
 		{
-			string text = InputTextBox.Text;
+			var text = InputTextBox.Text;
 
 			InputTextBox.Text = text.Substring(0, text.Length - 1);
+
+            InputTextBox.Focus();
 		}
 
 		private void NumberButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (e.Source == ZeroButton)
+		    var source = e.Source;
+
+			if (source.Equals(ZeroButton))
 				InputTextBox.Text += 0;
-			else if (e.Source == OneButton)
+			else if (source.Equals(OneButton))
 				InputTextBox.Text += 1;
-			else if (e.Source == TwoButton)
+			else if (source.Equals(TwoButton))
 				InputTextBox.Text += 2;
-			else if (e.Source == ThreeButton)
+			else if (source.Equals(ThreeButton))
 				InputTextBox.Text += 3;
-			else if (e.Source == FourButton)
+			else if (source.Equals(FourButton))
 				InputTextBox.Text += 4;
-			else if (e.Source == FiveButton)
+			else if (source.Equals(FiveButton))
 				InputTextBox.Text += 5;
-			else if (e.Source == SixButton)
+			else if (source.Equals(SixButton))
 				InputTextBox.Text += 6;
-			else if (e.Source == SevenButton)
+			else if (source.Equals(SevenButton))
 				InputTextBox.Text += 7;
-			else if (e.Source == EightButton)
+			else if (source.Equals(EightButton))
 				InputTextBox.Text += 8;
-			else if (e.Source == NineButton)
+			else if (source.Equals(NineButton))
 				InputTextBox.Text += 9;
-			else if (e.Source == DecimalButton)
+			else if (source.Equals(DecimalButton))
 				InputTextBox.Text += '.';
+
+		    InputTextBox.Focus();
 		}
 
 		private void OperationButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (e.Source == MultiplyButton)
+            var source = e.Source;
+
+			if (source.Equals(MultiplyButton))
 				InputTextBox.Text += '*';
-			else if (e.Source == DivideButton)
+			else if (source.Equals(DivideButton))
 				InputTextBox.Text += '/';
-			else if (e.Source == AddButton)
+			else if (source.Equals(AddButton))
 				InputTextBox.Text += '+';
-			else if (e.Source == SubtractButton)
+			else if (source.Equals(SubtractButton))
 				InputTextBox.Text += '-';
-			else if (e.Source == PowerButton)
+			else if (source.Equals(PowerButton))
 				InputTextBox.Text += '^';
+
+            InputTextBox.Focus();
 		}
+
+        private void InputTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Calculate(false);
+        }
     }
 
 	public class HistoryItem

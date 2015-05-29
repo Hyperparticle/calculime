@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using Calculime.DataStructures.Values;
-using Calculime.Operations;
-using Calculime.Operations.BinaryOperations;
 using Calculime.Exceptions;
+using Calculime.Tokens.Operations;
+using Calculime.Tokens.Operations.BinaryOperations;
+using Calculime.Tokens.Separators;
 
-namespace Calculime.DataStructures
+namespace Calculime.Tokens
 {
     public class Token
     {
-		public static string[] OPERATORS = { "+", "-", "*", "/", "^", "%", "(", ")", "," };
+		public static string[] Operators = { "+", "-", "*", "/", "^", "%", "(", ")", "," };
 
-        private string token;
+        private readonly string _token;
 
 		// Use these dictionaries to map string operators to their respective functions
-		public static Dictionary<string, Operation> operationDict = new Dictionary<string, Operation>()
+		public static Dictionary<string, Operation> OperationDict = new Dictionary<string, Operation>()
 		{
 			{ "+", new Add() },
 			{ "-", new Subtract() },
@@ -28,22 +24,23 @@ namespace Calculime.DataStructures
 			{ "%", new Modulo() }
 		};
 
-        public static Dictionary<string, Separator> separatorDict = new Dictionary<string, Separator>()
+        public static Dictionary<string, Separator> SeparatorDict = new Dictionary<string, Separator>()
 		{
 			{ "(", new LeftParenthesis() },
 			{ ")", new RightParenthesis() },
 			{ ",", new Comma() }
 		};
 
+        // Constructors
         public Token(string tok)
         {
-            token = tok;
+            _token = tok;
             EvaluateToken();
         }
 
 		public Token(Value value)
 		{
-			token = value.ToString();
+			_token = value.ToString();
 			Value = value;
 
 			IsValue = true;
@@ -52,30 +49,31 @@ namespace Calculime.DataStructures
 
 		public Token(Operation operation)
 		{
-			token = operation.ToString();
+			_token = operation.ToString();
 			Operation = operation;
 
 			IsValue = false;
 			IsOperation = true;
 		}
 
+        // Parses for the correct token identifier
         private void EvaluateToken()
         {
             double val;
             Operation op;
             Separator sep;
 
-            if (double.TryParse(token, out val))
+            if (double.TryParse(_token, out val))
             {
                 Value = new DecimalValue(val);
                 IsValue = true;
             }
-            else if (operationDict.TryGetValue(token, out op))
+            else if (OperationDict.TryGetValue(_token, out op))
             {
                 Operation = op;
                 IsOperation = true;
             }
-            else if (separatorDict.TryGetValue(token, out sep))
+            else if (SeparatorDict.TryGetValue(_token, out sep))
             {
                 Separator = sep;
                 IsSeparator = true;
@@ -86,6 +84,7 @@ namespace Calculime.DataStructures
             }
         }
 
+        // Identifiers
         public Value Value { get; protected set; }
         public Operation Operation { get; protected set; }
         public Separator Separator { get; protected set; }
