@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 using Calculime.DataStructures.Values;
 using Calculime.Operations;
 using Calculime.Operations.BinaryOperations;
+using Calculime.Exceptions;
 
 namespace Calculime.DataStructures
 {
     public class Token
     {
-		public static string[] OPERATORS = { "+", "-", "*", "/", "^", "%" };
+		public static string[] OPERATORS = { "+", "-", "*", "/", "^", "%", "(", ")", "," };
 
         private string token;
 
-		// Use this dictionary to map string operators to their respective functions
+		// Use these dictionaries to map string operators to their respective functions
 		public static Dictionary<string, Operation> operationDict = new Dictionary<string, Operation>()
 		{
 			{ "+", new Add() },
@@ -25,6 +26,13 @@ namespace Calculime.DataStructures
 			{ "/", new Divide() },
 			{ "^", new Power() },
 			{ "%", new Modulo() }
+		};
+
+        public static Dictionary<string, Separator> separatorDict = new Dictionary<string, Separator>()
+		{
+			{ "(", new LeftParenthesis() },
+			{ ")", new RightParenthesis() },
+			{ ",", new Comma() }
 		};
 
         public Token(string tok)
@@ -54,28 +62,36 @@ namespace Calculime.DataStructures
         private void EvaluateToken()
         {
             double val;
+            Operation op;
+            Separator sep;
+
             if (double.TryParse(token, out val))
             {
                 Value = new DecimalValue(val);
-
                 IsValue = true;
-                IsOperation = false;
+            }
+            else if (operationDict.TryGetValue(token, out op))
+            {
+                Operation = op;
+                IsOperation = true;
+            }
+            else if (separatorDict.TryGetValue(token, out sep))
+            {
+                Separator = sep;
+                IsSeparator = true;
             }
             else
             {
-				Operation op;
-				operationDict.TryGetValue(token, out op);
-				Operation = op;
-
-                IsValue = false;
-                IsOperation = true;
+                throw new InvalidTokenException();
             }
         }
 
         public Value Value { get; protected set; }
         public Operation Operation { get; protected set; }
+        public Separator Separator { get; protected set; }
 
         public bool IsValue { get; protected set; }
         public bool IsOperation { get; protected set; }
+        public bool IsSeparator { get; protected set; }
     }
 }

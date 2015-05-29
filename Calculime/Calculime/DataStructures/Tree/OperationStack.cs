@@ -13,23 +13,23 @@ namespace Calculime.DataStructures.Tree
      */
 	public class OperationStack
 	{
-		private Stack<Operation> stack;
+		private Stack<Token> stack;
 
 		public OperationStack()
 		{
-			stack = new Stack<Operation>();
+            stack = new Stack<Token>();
 		}
 
-		public Operation Pop()
+        public Token Pop()
 		{
 			return stack.Pop();
 		}
-		public void Push(Operation value)
+        public void Push(Token value)
 		{
 			stack.Push(value);
 		}
 
-		public Operation Peek()
+        public Token Peek()
 		{
 			return stack.Peek();
 		}

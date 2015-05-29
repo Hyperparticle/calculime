@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Calculime.Operations;
 using Calculime.DataStructures.Values;
 using System.Text.RegularExpressions;
+using Calculime.Exceptions;
 
 namespace Calculime.DataStructures.Tree
 {
@@ -31,17 +32,19 @@ namespace Calculime.DataStructures.Tree
 		{
 			// Create a regex based on the token operators, and create a list of tokens
 			string pattern = "(" + String.Join("|", Token.OPERATORS.Select(d => Regex.Escape(d)).ToArray()) + ")";
-			List<string> tokens = Regex.Split(infixExpression, pattern).ToList();
+			List<string> tokens = Regex.Split(infixExpression, pattern).Where(s => !string.IsNullOrEmpty(s)).ToList();
 
 			// Use Shunting Yard Algorithm to generate a postfix expression
 			foreach (string token in tokens)
 			{
-				ParseToken(new Token(token));
+                if (!string.IsNullOrEmpty(token))
+				    ParseToken(new Token(token));
 			}
 
 			while (!operationStack.Empty())
 			{
-				Token op = new Token(operationStack.Pop());
+				Token op = operationStack.Pop();
+                if (op.IsSeparator) throw new MismatchedParenthesisException();
 				expressionQueue.Enqueue(op);
 			}
 		}
@@ -52,23 +55,49 @@ namespace Calculime.DataStructures.Tree
 			{
 				expressionQueue.Enqueue(token);
 			}
-			else
+			else if (token.IsOperation)
 			{
-				Operation operation = token.Operation;
+                Operation operation = token.Operation;
 
-				while (!operationStack.Empty())
-				{
-					if (operation.LeftAssociative && operation.Precedence <= operationStack.Peek().Precedence ||
-						!operation.LeftAssociative && operation.Precedence < operationStack.Peek().Precedence)
-					{
-						Token op = new Token(operationStack.Pop());
-						expressionQueue.Enqueue(op);
-					}
-					else break;
-				}
+                if (!operationStack.Empty() && operationStack.Peek().IsOperation)
+                {
+                   Operation stackOperation = operationStack.Peek().Operation;
 
-				operationStack.Push(operation);
+				    while (!operationStack.Empty())
+				    {
+					    if (operation.LeftAssociative && operation.Precedence <= stackOperation.Precedence ||
+						    !operation.LeftAssociative && operation.Precedence < stackOperation.Precedence)
+					    {
+                            expressionQueue.Enqueue(operationStack.Pop());
+					    }
+					    else break;
+				    }
+                }
+
+                operationStack.Push(token);
 			}
+            else if (token.IsSeparator)
+            {
+                Separator separator = token.Separator;
+
+                if (separator.Symbol.Equals("("))
+                {
+                    operationStack.Push(token);
+                }
+                else if (separator.Symbol.Equals(")"))
+                {
+                    if (operationStack.Empty()) throw new MismatchedParenthesisException();
+
+                    while (!(operationStack.Peek().IsSeparator && operationStack.Peek().Separator.Symbol.Equals("(")))
+                    {
+                        if (operationStack.Empty()) throw new MismatchedParenthesisException();
+                        expressionQueue.Enqueue(operationStack.Pop());
+                    }
+
+                    // Pop the left parenthesis
+                    operationStack.Pop();
+                }
+            }
 		}
 
 		public string Calculate()

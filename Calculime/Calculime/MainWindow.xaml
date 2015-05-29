@@ -11,8 +11,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox Height="23" x:Name="InputTextBox" TextWrapping="Wrap" KeyDown="InputTextBox_KeyDown"/>
         <TextBlock x:Name="OutputTextBlock" TextWrapping="Wrap" Text="Output Here" Height="26"/>
+        <TextBox Height="23" x:Name="InputTextBox" TextWrapping="Wrap" KeyDown="InputTextBox_KeyDown"/>
         <Grid Height="218">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

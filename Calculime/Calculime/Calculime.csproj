@@ -68,6 +68,9 @@
     <Compile Include="DataStructures\Tree\ValueStack.cs" />
     <Compile Include="DataStructures\Tree\OperationStack.cs" />
     <Compile Include="DataStructures\Values\DecimalValue.cs" />
+    <Compile Include="Exceptions\InvalidTokenException.cs" />
+    <Compile Include="Exceptions\MismatchedParenthesisException.cs" />
+    <Compile Include="Exceptions\SyntaxException.cs" />
     <Compile Include="ExpressionParser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -82,7 +85,11 @@
     <Compile Include="Operations\BinaryOperations\Power.cs" />
     <Compile Include="Operations\BinaryOperations\Multiply.cs" />
     <Compile Include="Operations\BinaryOperations\Subtract.cs" />
+    <Compile Include="Operations\Comma.cs" />
+    <Compile Include="Operations\LeftParenthesis.cs" />
     <Compile Include="Operations\Operation.cs" />
+    <Compile Include="Operations\RightParenthesis.cs" />
+    <Compile Include="Operations\Separator.cs" />
     <Compile Include="Operations\UnaryOperations\Inverse.cs" />
     <Compile Include="Operations\UnaryOperations\Negate.cs" />
     <Compile Include="Operations\UnaryOperations\Square.cs" />
