@@ -58,12 +58,10 @@ namespace Calculime.DataStructures.Tree
 
                 if (!_operationStack.Empty() && _operationStack.Peek().IsOperation)
                 {
-                   var stackOperation = _operationStack.Peek().Operation;
-
 				    while (!_operationStack.Empty())
 				    {
-					    if (operation.LeftAssociative && operation.Precedence <= stackOperation.Precedence ||
-						    !operation.LeftAssociative && operation.Precedence < stackOperation.Precedence)
+                        if (operation.LeftAssociative && operation.Precedence <= _operationStack.Peek().Operation.Precedence ||
+                            !operation.LeftAssociative && operation.Precedence < _operationStack.Peek().Operation.Precedence)
 					    {
                             _expressionQueue.Enqueue(_operationStack.Pop());
 					    }

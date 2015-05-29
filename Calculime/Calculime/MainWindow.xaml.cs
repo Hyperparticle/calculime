@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -45,10 +46,10 @@ namespace Calculime
 		        var result = _parser.Parse(expression);
                 OutputTextBlock.Text = result;
 		        InputTextBox.Background = SystemColors.WindowBrush;
-
+                
                 if (showHistory)
                 {
-                    HistoryListView.Items.Add(new HistoryItem { Id = expression + '=' + OutputTextBlock.Text });
+                    HistoryListView.Items.Add(new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
                 }
 		    }
 		    catch (Exception e)
@@ -129,6 +130,7 @@ namespace Calculime
 
 	public class HistoryItem
 	{
-		public string Id { get; set; }
+		public string Expression { get; set; }
+        public string Result { get; set; }
 	}
 }
