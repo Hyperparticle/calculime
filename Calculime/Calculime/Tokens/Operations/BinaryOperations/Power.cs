@@ -1,4 +1,4 @@
-﻿using Calculime.DataStructures.Values;
+﻿using Calculime.Tokens.Values;
 
 namespace Calculime.Tokens.Operations.BinaryOperations
 {

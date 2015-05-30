@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Calculime.DataStructures.Values;
+using Calculime.Tokens.Values;
 
 namespace Calculime.DataStructures.Tree
 {

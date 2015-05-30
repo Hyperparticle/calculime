@@ -76,7 +76,9 @@
     <Compile Include="DataStructures\Tree\Node.cs" />
     <Compile Include="DataStructures\Tree\ValueStack.cs" />
     <Compile Include="DataStructures\Tree\OperationStack.cs" />
-    <Compile Include="DataStructures\Values\DecimalValue.cs" />
+    <Compile Include="Tokens\Values\Constants\EulerConstant.cs" />
+    <Compile Include="Tokens\Values\Constants\Pi.cs" />
+    <Compile Include="Tokens\Values\DecimalValue.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Exceptions\MismatchedParenthesisException.cs" />
     <Compile Include="Exceptions\SyntaxException.cs" />
@@ -104,7 +106,7 @@
     <Compile Include="Tokens\Operations\UnaryOperations\Exp\Square.cs" />
     <Compile Include="Tokens\Operations\UnaryOperations\Exp\SquareRoot.cs" />
     <Compile Include="Tokens\Operations\UnaryOperations\UnaryOperation.cs" />
-    <Compile Include="DataStructures\Values\Value.cs" />
+    <Compile Include="Tokens\Values\Value.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Calculime.DataStructures.Values
+namespace Calculime.Tokens.Values
 {
     public abstract class Value
     {
-		public double Val { get; set; }
+		public abstract double Val { get; set; }
 
 		// Value Operators
 		public static Value operator +(Value value1, Value value2)

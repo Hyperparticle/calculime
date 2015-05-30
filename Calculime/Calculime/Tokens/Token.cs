@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Calculime.DataStructures.Values;
 using Calculime.Exceptions;
 using Calculime.Tokens.Operations;
 using Calculime.Tokens.Operations.BinaryOperations;
@@ -7,6 +6,8 @@ using Calculime.Tokens.Operations.UnaryOperations;
 using Calculime.Tokens.Operations.UnaryOperations.Exp;
 using Calculime.Tokens.Operations.UnaryOperations.Trig;
 using Calculime.Tokens.Separators;
+using Calculime.Tokens.Values;
+using Calculime.Tokens.Values.Constants;
 
 namespace Calculime.Tokens
 {
@@ -67,6 +68,12 @@ namespace Calculime.Tokens
 			{ ",", new Comma() }
 		};
 
+        public static Dictionary<string, Value> ValueDict = new Dictionary<string, Value>()
+		{
+			{ "pi", new Pi() },
+			{ "e", new EulerConstant() }
+		};
+
         // Constructors
         public Token(string tok)
         {
@@ -98,6 +105,7 @@ namespace Calculime.Tokens
             double val;
             Operation op;
             Separator sep;
+            Value value;
 
             if (double.TryParse(_token, out val))
             {
@@ -113,6 +121,11 @@ namespace Calculime.Tokens
             {
                 Separator = sep;
                 IsSeparator = true;
+            }
+            else if (ValueDict.TryGetValue(_token, out value))
+            {
+                Value = value;
+                IsValue = true;
             }
             else
             {

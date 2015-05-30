@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
-using Calculime.DataStructures.Values;
 using Calculime.Exceptions;
 using Calculime.Tokens;
 using Calculime.Tokens.Operations.BinaryOperations;
 using Calculime.Tokens.Operations.UnaryOperations;
+using Calculime.Tokens.Values;
 
 namespace Calculime.DataStructures.Tree
 {
@@ -64,8 +63,9 @@ namespace Calculime.DataStructures.Tree
                 {
 				    while (!_operationStack.Empty())
 				    {
-                        if (operation.LeftAssociative && operation.Precedence <= _operationStack.Peek().Operation.Precedence ||
-                            !operation.LeftAssociative && operation.Precedence < _operationStack.Peek().Operation.Precedence)
+                        if (operation.NumArguments > 1 && 
+                            (operation.LeftAssociative && operation.Precedence <= _operationStack.Peek().Operation.Precedence ||
+                            !operation.LeftAssociative && operation.Precedence < _operationStack.Peek().Operation.Precedence))
 					    {
                             _expressionQueue.Enqueue(_operationStack.Pop());
 					    }

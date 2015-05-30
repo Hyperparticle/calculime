@@ -1,5 +1,5 @@
 ﻿using System;
-using Calculime.DataStructures.Values;
+using Calculime.Tokens.Values;
 
 namespace Calculime.Tokens.Operations.UnaryOperations.Exp
 {
