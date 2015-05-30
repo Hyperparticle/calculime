@@ -3,25 +3,61 @@ using Calculime.DataStructures.Values;
 using Calculime.Exceptions;
 using Calculime.Tokens.Operations;
 using Calculime.Tokens.Operations.BinaryOperations;
+using Calculime.Tokens.Operations.UnaryOperations;
+using Calculime.Tokens.Operations.UnaryOperations.Exp;
+using Calculime.Tokens.Operations.UnaryOperations.Trig;
 using Calculime.Tokens.Separators;
 
 namespace Calculime.Tokens
 {
     public class Token
     {
-		public static string[] Operators = { "+", "-", "*", "/", "^", "%", "(", ")", "," };
+        public static readonly string Add = "+";
+        public static readonly string Subtract = "-";
+        public static readonly string Multiply = "*";
+        public static readonly string Divide = "/";
+        public static readonly string Power = "^";
+        public static readonly string Modulo = "%";
+        public static readonly string LeftParenthesis = "(";
+        public static readonly string RightParenthesis = ")";
+        public static readonly string Comma = ",";
+        public static readonly string Factorial = "!";
+        public static readonly string SquareRoot = "sqrt";
+        public static readonly string Sine = "sin";
+        public static readonly string Cosine = "cos";
+        public static readonly string Tangent = "tan";
+        public static readonly string Arcsine = "asin";
+        public static readonly string Arccosine = "acos";
+        public static readonly string Arctangent = "atan";
+        public static readonly string Log10 = "log10";
+        public static readonly string NaturalLog = "ln";
+
+
+		public static string[] Operators = { Add, Subtract, Multiply, Divide, Power, Modulo, LeftParenthesis, 
+                                               RightParenthesis, Comma, Factorial, SquareRoot, Sine, Cosine,
+                                               Tangent, Arcsine, Arccosine, Arctangent, Log10, NaturalLog };
 
         private readonly string _token;
 
 		// Use these dictionaries to map string operators to their respective functions
 		public static Dictionary<string, Operation> OperationDict = new Dictionary<string, Operation>()
 		{
-			{ "+", new Add() },
-			{ "-", new Subtract() },
-			{ "*", new Multiply() },
-			{ "/", new Divide() },
-			{ "^", new Power() },
-			{ "%", new Modulo() }
+			{ Add, new Add() },
+			{ Subtract, new Subtract() },
+			{ Multiply, new Multiply() },
+			{ Divide, new Divide() },
+			{ Power, new Power() },
+			{ Modulo, new Modulo() },
+            { Factorial, new Factorial() },
+            { SquareRoot, new SquareRoot() },
+            { Sine, new Sine() },
+            { Cosine, new Cosine() },
+            { Tangent, new Tangent() },
+            { Arcsine, new Arcsine() },
+            { Arccosine, new Arccosine() },
+            { Arctangent, new Arctangent() },
+            { Log10, new Log10() },
+            { NaturalLog, new NaturalLog() }
 		};
 
         public static Dictionary<string, Separator> SeparatorDict = new Dictionary<string, Separator>()
@@ -34,7 +70,7 @@ namespace Calculime.Tokens
         // Constructors
         public Token(string tok)
         {
-            _token = tok;
+            _token = tok.ToLower().Trim();
             EvaluateToken();
         }
 

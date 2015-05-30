@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using Calculime.DataStructures.Values;
 using Calculime.Exceptions;
 using Calculime.Tokens;
+using Calculime.Tokens.Operations.BinaryOperations;
+using Calculime.Tokens.Operations.UnaryOperations;
 
 namespace Calculime.DataStructures.Tree
 {
@@ -110,13 +114,28 @@ namespace Calculime.DataStructures.Tree
 				else if (token.IsOperation)
 				{
 					var operation = token.Operation;
+                    Value value1, value2;
+                                        
+                    // Special Case
+				    if (operation is Subtract && stack.Count() == 1)
+				    {
+                        value1 = stack.Pop();
+                        stack.Push((new Negate()).Execute(value1));
+                        continue;
+				    }
 
-					//if (operation.IsBinary)
-
-					var value1 = stack.Pop();
-					var value2 = stack.Pop();
-
-					stack.Push(token.Operation.Execute(value2, value1));	
+				    switch (operation.NumArguments)
+				    {
+                        case 1:
+				            value1 = stack.Pop();
+                            stack.Push(operation.Execute(value1));
+				            break;
+                        case 2:
+                            value1 = stack.Pop();
+				            value2 = stack.Pop();
+                            stack.Push(operation.Execute(value2, value1));
+				            break;
+				    }
 				}
 				else
 				{

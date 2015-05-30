@@ -63,6 +63,15 @@
     </Compile>
     <Compile Include="DataStructures\Tree\ExpressionQueue.cs" />
     <Compile Include="DataStructures\Tree\ExpressionTree.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Exp\NaturalLog.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Exp\Log10.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Factorial.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Cosine.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Arcsine.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Arctangent.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Arccosine.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Tangent.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Sine.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="DataStructures\Tree\Node.cs" />
     <Compile Include="DataStructures\Tree\ValueStack.cs" />
@@ -92,8 +101,8 @@
     <Compile Include="Tokens\Separators\Separator.cs" />
     <Compile Include="Tokens\Operations\UnaryOperations\Inverse.cs" />
     <Compile Include="Tokens\Operations\UnaryOperations\Negate.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Square.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\SquareRoot.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Exp\Square.cs" />
+    <Compile Include="Tokens\Operations\UnaryOperations\Exp\SquareRoot.cs" />
     <Compile Include="Tokens\Operations\UnaryOperations\UnaryOperation.cs" />
     <Compile Include="DataStructures\Values\Value.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

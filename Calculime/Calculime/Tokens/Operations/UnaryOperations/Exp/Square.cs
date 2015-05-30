@@ -1,6 +1,6 @@
 ﻿using Calculime.DataStructures.Values;
 
-namespace Calculime.Tokens.Operations.UnaryOperations
+namespace Calculime.Tokens.Operations.UnaryOperations.Exp
 {
     public class Square : UnaryOperation
     {

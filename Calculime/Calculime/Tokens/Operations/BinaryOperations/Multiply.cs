@@ -6,7 +6,7 @@ namespace Calculime.Tokens.Operations.BinaryOperations
     {
         public Multiply()
         {
-            Symbol = "*";
+            Symbol = Token.Multiply;
 			Precedence = (int)Priority.Medium;
 			LeftAssociative = true;
         }

@@ -10,6 +10,7 @@ namespace Calculime.Tokens.Operations
         public int Precedence { get;  protected set; }
         public bool LeftAssociative { get; set; }
         public string Symbol { get; protected set; }
+        public int NumArguments { get; protected set; }
 
 		public abstract Value Execute(params Value[] values);
 

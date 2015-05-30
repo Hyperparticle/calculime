@@ -6,7 +6,7 @@ namespace Calculime.Tokens.Operations.BinaryOperations
     {
 		public Power()
         {
-            Symbol = "^";
+            Symbol = Token.Power;
 			Precedence = (int)Priority.High;
 			LeftAssociative = false;
         }

@@ -6,7 +6,7 @@ namespace Calculime.Tokens.Operations.BinaryOperations
     {
         public Subtract()
         {
-            Symbol = "-";
+            Symbol = Token.Subtract;
             Precedence = (int)Priority.Low;
             LeftAssociative = true;
         }

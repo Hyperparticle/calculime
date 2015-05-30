@@ -30,6 +30,11 @@ namespace Calculime.DataStructures.Tree
             return _queue.Peek();
         }
 
+        public int Count()
+        {
+            return _queue.Count;
+        }
+
         public bool Empty()
         {
             return _queue.Count == 0;

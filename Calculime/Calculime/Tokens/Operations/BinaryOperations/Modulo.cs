@@ -6,7 +6,7 @@ namespace Calculime.Tokens.Operations.BinaryOperations
     {
         public Modulo()
         {
-            Symbol = "%";
+            Symbol = Token.Modulo;
 			Precedence = (int)Priority.Medium;
 			LeftAssociative = true;
         }

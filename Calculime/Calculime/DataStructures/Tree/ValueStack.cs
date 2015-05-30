@@ -29,6 +29,11 @@ namespace Calculime.DataStructures.Tree
 			return _stack.Peek();
 		}
 
+	    public int Count()
+	    {
+	        return _stack.Count;
+	    }
+
 		public bool Empty()
 		{
 			return _stack.Count == 0;
@@ -36,7 +41,7 @@ namespace Calculime.DataStructures.Tree
 
 		public void Clear()
 		{
-			_stack.Clear();
+		    _stack.Clear();
 		}
 	}
 }

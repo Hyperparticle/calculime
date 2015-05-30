@@ -6,7 +6,7 @@ namespace Calculime.Tokens.Operations.BinaryOperations
     {
         public Divide()
         {
-            Symbol = "/";
+            Symbol = Token.Divide;
 			Precedence = (int)Priority.Medium;
 			LeftAssociative = true;
         }
