@@ -41,7 +41,7 @@ namespace Calculime.Tokens
         private readonly string _token;
 
 		// Use these dictionaries to map string operators to their respective functions
-		public static Dictionary<string, Operation> OperationDict = new Dictionary<string, Operation>()
+		public static Dictionary<string, Operation> OperationDict = new Dictionary<string, Operation>
 		{
 			{ Add, new Add() },
 			{ Subtract, new Subtract() },
@@ -61,14 +61,14 @@ namespace Calculime.Tokens
             { NaturalLog, new NaturalLog() }
 		};
 
-        public static Dictionary<string, Separator> SeparatorDict = new Dictionary<string, Separator>()
+        public static Dictionary<string, Separator> SeparatorDict = new Dictionary<string, Separator>
 		{
 			{ "(", new LeftParenthesis() },
 			{ ")", new RightParenthesis() },
 			{ ",", new Comma() }
 		};
 
-        public static Dictionary<string, Value> ValueDict = new Dictionary<string, Value>()
+        public static Dictionary<string, Value> ValueDict = new Dictionary<string, Value>
 		{
 			{ "pi", new Pi() },
 			{ "e", new EulerConstant() }
