@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using PrattParser.Expressions;
 using PrattParser.Parselets;
+using PrattParser.Tokens;
 
-namespace PrattParser
+namespace PrattParser.Parsers
 {
     public class Parser
     {
@@ -37,7 +33,7 @@ namespace PrattParser
 
         public IExpression ParseExpression(int precedence = 0)
         {
-            Token token = Consume();
+            var token = Consume();
             IPrefixParselet prefix;
             if (!_dPrefixParselets.TryGetValue(token.GetTokenType(), out prefix))
                 throw new ParseException("Could not parse \'" + token.GetText() + "\'.");
@@ -67,7 +63,7 @@ namespace PrattParser
 
         public Token Consume(TokenType expected)
         {
-            Token token = LookAhead(0);
+            var token = LookAhead(0);
             if (token.GetTokenType() != expected)
                 throw new Exception("Expected token \'" + expected + 
                     "\' and found \'" + token.GetTokenType() + " \'");
@@ -92,7 +88,7 @@ namespace PrattParser
             while (distance >= _read.Count)
             {
                 _tokens.MoveNext();
-                _read.Add((Token)_tokens.Current);
+                _read.Add(_tokens.Current);
             }
 
             // Get the queued token.

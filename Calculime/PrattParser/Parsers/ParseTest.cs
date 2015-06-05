@@ -1,55 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace PrattParser
+namespace PrattParser.Parsers
 {
     public class ParseTest
     {
         private static int _passed = 0;
         private static int _failed = 0;
 
-        public static void main(string[] args)
+        public static void Parse()
         {
             // Function call.
-            test("a()", "a()");
-            test("a(b)", "a(b)");
-            test("a(b, c)", "a(b, c)");
-            test("a(b)(c)", "a(b)(c)");
-            test("a(b) + c(d)", "(a(b) + c(d))");
-            test("a(b ? c : d, e + f)", "a((b ? c : d), (e + f))");
+            Test("a()", "a()");
+            Test("a(b)", "a(b)");
+            Test("a(b, c)", "a(b, c)");
+            Test("a(b)(c)", "a(b)(c)");
+            Test("a(b) + c(d)", "(a(b) + c(d))");
+            Test("a(b ? c : d, e + f)", "a((b ? c : d), (e + f))");
     
             // Unary precedence.
-            test("~!-+a", "(~(!(-(+a))))");
-            test("a!!!", "(((a!)!)!)");
+            Test("~!-+a", "(~(!(-(+a))))");
+            Test("a!!!", "(((a!)!)!)");
     
             // Unary and binary predecence.
-            test("-a * b", "((-a) * b)");
-            test("!a + b", "((!a) + b)");
-            test("~a ^ b", "((~a) ^ b)");
-            test("-a!",    "(-(a!))");
-            test("!a!",    "(!(a!))");
+            Test("-a * b", "((-a) * b)");
+            Test("!a + b", "((!a) + b)");
+            Test("~a ^ b", "((~a) ^ b)");
+            Test("-a!",    "(-(a!))");
+            Test("!a!",    "(!(a!))");
     
             // Binary precedence.
-            test("a = b + c * d ^ e - f / g", "(a = ((b + (c * (d ^ e))) - (f / g)))");
+            Test("a = b + c * d ^ e - f / g", "(a = ((b + (c * (d ^ e))) - (f / g)))");
     
             // Binary associativity.
-            test("a = b = c", "(a = (b = c))");
-            test("a + b - c", "((a + b) - c)");
-            test("a * b / c", "((a * b) / c)");
-            test("a ^ b ^ c", "(a ^ (b ^ c))");
+            Test("a = b = c", "(a = (b = c))");
+            Test("a + b - c", "((a + b) - c)");
+            Test("a * b / c", "((a * b) / c)");
+            Test("a ^ b ^ c", "(a ^ (b ^ c))");
     
             // Conditional operator.
-            test("a ? b : c ? d : e", "(a ? b : (c ? d : e))");
-            test("a ? b ? c : d : e", "(a ? (b ? c : d) : e)");
-            test("a + b ? c * d : e / f", "((a + b) ? (c * d) : (e / f))");
+            Test("a ? b : c ? d : e", "(a ? b : (c ? d : e))");
+            Test("a ? b ? c : d : e", "(a ? (b ? c : d) : e)");
+            Test("a + b ? c * d : e / f", "((a + b) ? (c * d) : (e / f))");
     
             // Grouping.
-            test("a + (b + c) + d", "((a + (b + c)) + d)");
-            test("a ^ (b + c)", "(a ^ (b + c))");
-            test("(!a)!",    "((!a)!)");
+            Test("a + (b + c) + d", "((a + (b + c)) + d)");
+            Test("a ^ (b + c)", "(a ^ (b + c))");
+            Test("(!a)!",    "((!a)!)");
     
             // Show the results.
             if (_failed == 0) {
@@ -65,17 +62,17 @@ namespace PrattParser
          * Parses the given chunk of code and verifies that it matches the expected
          * pretty-printed result.
          */
-        public static void test(String source, String expected) 
+        public static void Test(string source, string expected) 
         {
-            Lexer lexer = new Lexer(source);
+            var lexer = new Lexer(source);
             Parser parser = new MathParser(lexer);
     
             try 
             {
                 var result = parser.ParseExpression();
-                StringBuilder builder = new StringBuilder();
+                var builder = new StringBuilder();
                 result.Print(builder);
-                String actual = builder.ToString();
+                var actual = builder.ToString();
       
                 if (expected.Equals(actual)) 
                 {

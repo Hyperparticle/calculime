@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PrattParser
+﻿namespace PrattParser.Tokens
 {
     /**
      * Defines the different precendence levels used by the infix parsers. These

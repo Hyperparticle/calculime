@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PrattParser.Parselets;
+using PrattParser.Tokens;
 
-using PrattParser.Parselets;
-
-namespace PrattParser
+namespace PrattParser.Parsers
 {
     public class MathParser : Parser
     {
@@ -24,6 +19,8 @@ namespace PrattParser
             Register(TokenType.Question,    new ConditionalParselet());
             Register(TokenType.LeftParen,   new GroupParselet());
             Register(TokenType.LeftParen,   new CallParselet());
+            Register(TokenType.RightParen,  new GroupParselet());
+            Register(TokenType.RightParen,  new CallParselet());
 
             // Register the simple operator parselets.
             Prefix(TokenType.Plus,  Precedence.Prefix);

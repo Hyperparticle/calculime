@@ -1,4 +1,6 @@
 ﻿using PrattParser.Expressions;
+using PrattParser.Parsers;
+using PrattParser.Tokens;
 
 namespace PrattParser.Parselets
 {
@@ -16,7 +18,7 @@ namespace PrattParser.Parselets
             if (!(left is NameExpression))
                 throw new ParseException("The left-hand side of an assignment must be a name.");
 
-            string name = ((NameExpression)left).GetName();
+            var name = ((NameExpression)left).GetName();
             return new AssignExpression(name, right);
         }
 

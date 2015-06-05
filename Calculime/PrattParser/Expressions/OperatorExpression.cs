@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PrattParser.Expressions;
+﻿using System.Text;
+using PrattParser.Tokens;
 
 namespace PrattParser.Expressions
 {
