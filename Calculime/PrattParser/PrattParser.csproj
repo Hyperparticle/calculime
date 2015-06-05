@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8600FB58-E183-4630-8088-4A8287CCC85F}</ProjectGuid>
+    <ProjectGuid>{C4BC6FFC-BB6C-4D01-BE39-C52F346F44AD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Calculime</RootNamespace>
-    <AssemblyName>Calculime</AssemblyName>
+    <RootNamespace>PrattParser</RootNamespace>
+    <AssemblyName>PrattParser</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,8 +51,31 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Expressions\CallExpression.cs" />
+    <Compile Include="Expressions\ConditionalExpression.cs" />
+    <Compile Include="Expressions\IExpression.cs" />
+    <Compile Include="Expressions\NameExpression.cs" />
+    <Compile Include="Expressions\PostfixExpression.cs" />
+    <Compile Include="Expressions\AssignExpression.cs" />
+    <Compile Include="Expressions\PrefixExpression.cs" />
+    <Compile Include="Parsers\Lexer.cs" />
+    <Compile Include="Parsers\MathParser.cs" />
+    <Compile Include="Parselets\GroupParselet.cs" />
+    <Compile Include="Parselets\CallParselet.cs" />
+    <Compile Include="Parselets\BinaryOperatorParselet.cs" />
+    <Compile Include="Parselets\AssignParselet.cs" />
+    <Compile Include="Parselets\ConditionalParselet.cs" />
+    <Compile Include="Parselets\IInfixParselet.cs" />
+    <Compile Include="Parselets\IPrefixParselet.cs" />
+    <Compile Include="Parselets\NameParselet.cs" />
+    <Compile Include="Expressions\OperatorExpression.cs" />
+    <Compile Include="Parselets\PostfixOperatorParselet.cs" />
+    <Compile Include="Parselets\PrefixOperatorParselet.cs" />
+    <Compile Include="Parsers\ParseTest.cs" />
+    <Compile Include="Tokens\Precedence.cs" />
+    <Compile Include="Tokens\Token.cs" />
+    <Compile Include="Tokens\TokenType.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -61,52 +84,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataStructures\Tree\ExpressionQueue.cs" />
-    <Compile Include="DataStructures\Tree\ExpressionTree.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Exp\NaturalLog.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Exp\Log10.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Factorial.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Cosine.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Arcsine.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Arctangent.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Arccosine.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Tangent.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Trig\Sine.cs" />
-    <Compile Include="Tokens\Token.cs" />
-    <Compile Include="DataStructures\Tree\Node.cs" />
-    <Compile Include="DataStructures\Tree\ValueStack.cs" />
-    <Compile Include="DataStructures\Tree\OperationStack.cs" />
-    <Compile Include="Tokens\Values\Constants\EulerConstant.cs" />
-    <Compile Include="Tokens\Values\Constants\Pi.cs" />
-    <Compile Include="Tokens\Values\DecimalValue.cs" />
-    <Compile Include="Exceptions\InvalidTokenException.cs" />
-    <Compile Include="Exceptions\MismatchedParenthesisException.cs" />
-    <Compile Include="Exceptions\SyntaxException.cs" />
-    <Compile Include="ExpressionParser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tokens\Operations\BinaryOperations\Add.cs" />
-    <Compile Include="Tokens\Operations\BinaryOperations\BinaryOperation.cs" />
-    <Compile Include="Tokens\Operations\BinaryOperations\Divide.cs" />
-    <Compile Include="Tokens\Operations\BinaryOperations\Modulo.cs" />
-    <Compile Include="Tokens\Operations\BinaryOperations\Power.cs" />
-    <Compile Include="Tokens\Operations\BinaryOperations\Multiply.cs" />
-    <Compile Include="Tokens\Operations\BinaryOperations\Subtract.cs" />
-    <Compile Include="Tokens\Separators\Comma.cs" />
-    <Compile Include="Tokens\Separators\LeftParenthesis.cs" />
-    <Compile Include="Tokens\Operations\Operation.cs" />
-    <Compile Include="Tokens\Separators\RightParenthesis.cs" />
-    <Compile Include="Tokens\Separators\Separator.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Inverse.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Negate.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Exp\Square.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\Exp\SquareRoot.cs" />
-    <Compile Include="Tokens\Operations\UnaryOperations\UnaryOperation.cs" />
-    <Compile Include="Tokens\Values\Value.cs" />
+    <Compile Include="Parsers\ParseException.cs" />
+    <Compile Include="Parsers\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,12 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tokens\Operations\MultiOperations\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\LimeC.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
