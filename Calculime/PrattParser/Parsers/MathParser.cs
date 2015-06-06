@@ -15,6 +15,7 @@ namespace PrattParser.Parsers
 
             // Register the ones that need special parselets.
             Register(TokenType.Name,        new NameParselet());
+            Register(TokenType.Number,      new NumberParselet());
             Register(TokenType.Assign,      new AssignParselet());
             Register(TokenType.Question,    new ConditionalParselet());
             Register(TokenType.LeftParen,   new GroupParselet());

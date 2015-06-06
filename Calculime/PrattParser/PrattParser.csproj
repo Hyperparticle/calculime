@@ -55,10 +55,12 @@
     <Compile Include="Expressions\CallExpression.cs" />
     <Compile Include="Expressions\ConditionalExpression.cs" />
     <Compile Include="Expressions\IExpression.cs" />
+    <Compile Include="Expressions\NumberExpression.cs" />
     <Compile Include="Expressions\NameExpression.cs" />
     <Compile Include="Expressions\PostfixExpression.cs" />
     <Compile Include="Expressions\AssignExpression.cs" />
     <Compile Include="Expressions\PrefixExpression.cs" />
+    <Compile Include="Parselets\NumberParselet.cs" />
     <Compile Include="Parsers\Lexer.cs" />
     <Compile Include="Parsers\MathParser.cs" />
     <Compile Include="Parselets\GroupParselet.cs" />

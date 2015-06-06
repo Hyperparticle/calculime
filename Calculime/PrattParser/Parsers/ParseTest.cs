@@ -47,6 +47,10 @@ namespace PrattParser.Parsers
             Test("a + (b + c) + d", "((a + (b + c)) + d)");
             Test("a ^ (b + c)", "(a ^ (b + c))");
             Test("(!a)!",    "((!a)!)");
+
+            // Numbers.
+            Test("-5.4 * .4", "((-5.4) * .4)");
+            Test("!0.02 + 7.", "((!0.02) + 7.)");
     
             // Show the results.
             if (_failed == 0) {

@@ -58,7 +58,7 @@ namespace PrattParser.Parsers
                     var start = _index - 1;
                     while (_index < _text.Length)
                     {
-                        if (!(char.IsDigit(c) || c == Symbol.Period)) break;
+                        if (!(char.IsDigit(_text[_index]) || _text[_index] == Symbol.Period)) break;
                         _index++;
                     }
 
