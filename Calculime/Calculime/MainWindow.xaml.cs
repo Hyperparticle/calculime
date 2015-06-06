@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using PrattParser.Parsers;
+using PrattParser.Tokens;
 
 namespace Calculime
 {
@@ -98,7 +99,7 @@ namespace Calculime
 			else if (source.Equals(NineButton))
 				InputTextBox.Text += 9;
 			else if (source.Equals(DecimalButton))
-				InputTextBox.Text += '.';
+				InputTextBox.Text += Symbol.Period;
 
 		    InputTextBox.Focus();
 		}
@@ -108,15 +109,15 @@ namespace Calculime
             var source = e.Source;
 
 			if (source.Equals(MultiplyButton))
-				InputTextBox.Text += '*';
+				InputTextBox.Text += Symbol.Asterisk;
 			else if (source.Equals(DivideButton))
-				InputTextBox.Text += '/';
+				InputTextBox.Text += Symbol.Slash;
 			else if (source.Equals(AddButton))
-				InputTextBox.Text += '+';
+				InputTextBox.Text += Symbol.Plus;
 			else if (source.Equals(SubtractButton))
-				InputTextBox.Text += '-';
-			else if (source.Equals(PowerButton))
-				InputTextBox.Text += '^';
+				InputTextBox.Text += Symbol.Minus;
+			else if (source.Equals(ExponentButton))
+				InputTextBox.Text += Symbol.Caret;
 
             InputTextBox.Focus();
 		}

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Text;
+using PrattParser.Exceptions;
 using PrattParser.Parsers;
 
-namespace Calculime
+namespace Calculime.Tests
 {
     public class ParseTest
     {
-        private static int _passed = 0;
-        private static int _failed = 0;
+        private static int _passed;
+        private static int _failed;
 
         public static void Parse()
         {

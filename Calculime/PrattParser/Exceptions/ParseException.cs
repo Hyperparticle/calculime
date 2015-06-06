@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PrattParser.Parsers
+namespace PrattParser.Exceptions
 {
     public class ParseException : Exception
     {

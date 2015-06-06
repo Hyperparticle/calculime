@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PrattParser.Exceptions;
 using PrattParser.Expressions;
 using PrattParser.Parselets;
 using PrattParser.Tokens;

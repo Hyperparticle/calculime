@@ -48,7 +48,7 @@
                         <Button x:Name="SubtractButton" Content="-" Grid.Row="2" Grid.Column="4" Click="OperationButton_Click"/>
                         <Button x:Name="ZeroButton" Content="0" Grid.Row="3" Grid.Column="0" Click="NumberButton_Click"/>
                         <Button x:Name="DecimalButton" Content="." Grid.Row="3" Grid.Column="1" Click="NumberButton_Click"/>
-                        <Button x:Name="PowerButton" Content="^" Grid.Row="3" Grid.Column="2" Click="OperationButton_Click"/>
+                        <Button x:Name="ExponentButton" Content="^" Grid.Row="3" Grid.Column="2" Click="OperationButton_Click"/>
                         <Button x:Name="AnswerButton" Content="ANS" Grid.Row="3" Grid.Column="3"/>
                         <Button x:Name="EqualsButton" Content="=" Grid.Row="3" Grid.Column="4" Click="CalculateButton_Click"/>
                     </Grid>

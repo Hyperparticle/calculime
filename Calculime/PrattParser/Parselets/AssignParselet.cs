@@ -1,4 +1,5 @@
-﻿using PrattParser.Expressions;
+﻿using PrattParser.Exceptions;
+using PrattParser.Expressions;
 using PrattParser.Parsers;
 using PrattParser.Tokens;
 

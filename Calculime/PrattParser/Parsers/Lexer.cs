@@ -19,7 +19,7 @@ namespace PrattParser.Parsers
             new Dictionary<char, TokenType>();
 
         private readonly string _text;
-        private int _index = 0;
+        private int _index;
 
         /**
          * Creates a new Lexer to tokenize the given string.
