@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using PrattParser.Tokens;
+using PrattParser2.Tokens;
 
-namespace PrattParser.Expressions
+namespace PrattParser2.Expressions
 {
     /**
      * A prefix unary arithmetic expression like "!a" or "-b".

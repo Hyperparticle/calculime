@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using PrattParser.Tokens;
+using PrattParser2.Tokens;
 
-namespace PrattParser.Expressions
+namespace PrattParser2.Expressions
 {
     /**
      * A binary arithmetic expression like "a + b" or "c ^ d".

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace PrattParser.Expressions
+namespace PrattParser2.Expressions
 {
     /**
      * A simple variable name expression like "abc".

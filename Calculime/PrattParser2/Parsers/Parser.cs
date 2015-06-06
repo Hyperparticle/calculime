@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using PrattParser.Expressions;
-using PrattParser.Parselets;
-using PrattParser.Tokens;
+using PrattParser2.Expressions;
+using PrattParser2.Parselets;
+using PrattParser2.Tokens;
 
-namespace PrattParser.Parsers
+namespace PrattParser2.Parsers
 {
     public class Parser
     {
-        private IEnumerator<Token> _tokens;
-        private List<Token> _read;
+        private readonly IEnumerator<Token> _tokens;
+        private readonly List<Token> _read = new List<Token>();
 
         private readonly Dictionary<TokenType, IPrefixParselet> _prefixParselets =
             new Dictionary<TokenType, IPrefixParselet>();
         private readonly Dictionary<TokenType, IInfixParselet> _infixParselets =
             new Dictionary<TokenType, IInfixParselet>();
+
+        public Parser(IEnumerator<Token> tokens)
+        {
+            _tokens = tokens;
+        }
 
         public void Register(TokenType token, IPrefixParselet parselet)
         {
@@ -26,17 +31,8 @@ namespace PrattParser.Parsers
             _infixParselets[token] = parselet;
         }
 
-        public IExpression ParseExpression(string expression)
-        {
-            _tokens = new Lexer(expression);
-            _read = new List<Token>();
-            return ParseExpression();
-        }
-
         public IExpression ParseExpression(Precedence precedence = 0)
         {
-            if (_tokens == null) return null;
-
             var token = Consume();
 
             IPrefixParselet prefix;
@@ -54,11 +50,6 @@ namespace PrattParser.Parsers
             }
 
             return left;
-        }
-
-        public double Execute(string expression)
-        {
-            return ParseExpression(expression).Execute();
         }
 
         public bool Match(TokenType expected)

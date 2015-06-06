@@ -1,36 +1,48 @@
-﻿using PrattParser.Parselets;
-using PrattParser.Tokens;
+﻿using PrattParser2.Parselets;
+using PrattParser2.Tokens;
 
-namespace PrattParser.Parsers
+namespace PrattParser2.Parsers
 {
     public class MathParser : Parser
     {
-        public MathParser()
+        /**
+        * Extends the generic Parser class with support for parsing the actual 
+        * Math grammar. Uses the default lexer.
+        */
+        public MathParser(string source) : this(new Lexer(source)) { }
+
+        /**
+         * Extends the generic Parser class with support for parsing the actual 
+         * Math grammar.
+         */
+        public MathParser(Lexer lexer) : base(lexer)
         {
             // Register all of the parselets for the grammar.
 
             // Register the ones that need special parselets.
-            Register(TokenType.Name, new NameParselet());
-            Register(TokenType.Number, new NumberParselet());
-            Register(TokenType.Assign, new AssignParselet());
-            Register(TokenType.Question, new ConditionalParselet());
-            Register(TokenType.LeftParen, new GroupParselet());
-            Register(TokenType.LeftParen, new CallParselet());
+            Register(TokenType.Name,        new NameParselet());
+            Register(TokenType.Number,      new NumberParselet());
+            Register(TokenType.Assign,      new AssignParselet());
+            Register(TokenType.Question,    new ConditionalParselet());
+            Register(TokenType.LeftParen,   new GroupParselet());
+            Register(TokenType.LeftParen,   new CallParselet());
+            //Register(TokenType.RightParen,  new GroupParselet());
+            //Register(TokenType.RightParen,  new CallParselet());
 
             // Register the simple operator parselets.
-            Prefix(TokenType.Plus, Precedence.Prefix);
+            Prefix(TokenType.Plus,  Precedence.Prefix);
             Prefix(TokenType.Minus, Precedence.Prefix);
             Prefix(TokenType.Tilde, Precedence.Prefix);
-            Prefix(TokenType.Bang, Precedence.Prefix);
+            Prefix(TokenType.Bang,  Precedence.Prefix);
 
             // For kicks, we'll make "!" both prefix and postfix, kind of like ++.
             Postfix(TokenType.Bang, Precedence.Postfix);
 
-            InfixLeft(TokenType.Plus, Precedence.Sum);
-            InfixLeft(TokenType.Minus, Precedence.Sum);
-            InfixLeft(TokenType.Asterisk, Precedence.Product);
-            InfixLeft(TokenType.Slash, Precedence.Product);
-            InfixRight(TokenType.Caret, Precedence.Exponent);
+            InfixLeft(TokenType.Plus,       Precedence.Sum);
+            InfixLeft(TokenType.Minus,      Precedence.Sum);
+            InfixLeft(TokenType.Asterisk,   Precedence.Product);
+            InfixLeft(TokenType.Slash,      Precedence.Product);
+            InfixRight(TokenType.Caret,     Precedence.Exponent);
         }
 
         /**

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrattParser.Tokens
+namespace PrattParser2.Tokens
 {
     public class Function
     {

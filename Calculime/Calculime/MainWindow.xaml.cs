@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using PrattParser.Parsers;
 
 namespace Calculime
 {
@@ -11,12 +12,10 @@ namespace Calculime
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ExpressionParser _parser;
+        private readonly Parser _parser = new MathParser();
 
         public MainWindow()
         {
-            _parser = new ExpressionParser();
-
             InitializeComponent();
         }
 
@@ -42,8 +41,9 @@ namespace Calculime
 
 		    try
 		    {
-		        var result = _parser.Parse(expression);
-                OutputTextBlock.Text = result;
+		        var result = _parser.Execute(expression);
+
+                OutputTextBlock.Text = result.ToString();
 		        InputTextBox.Background = SystemColors.WindowBrush;
                 
                 if (showHistory)
@@ -51,7 +51,7 @@ namespace Calculime
                     HistoryListView.Items.Add(new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
                 }
 		    }
-		    catch (Exception e)
+		    catch (Exception)
 		    {
 		        InputTextBox.Background = Brushes.IndianRed;
 		    }
