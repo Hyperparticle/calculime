@@ -17,9 +17,9 @@ namespace PrattParser.Expressions
             _args = args;
         }
 
-        public double Execute(params IExpression[] inputs)
+        public double Execute()
         {
-            return _function.Execute(_args.ToArray());
+            return _function.Execute();
         }
 
         public void Print(StringBuilder builder)

@@ -18,7 +18,7 @@ namespace PrattParser.Expressions
             _operator = type;
         }
 
-        public double Execute(params IExpression[] inputs)
+        public double Execute()
         {
             throw new NotImplementedException();
         }

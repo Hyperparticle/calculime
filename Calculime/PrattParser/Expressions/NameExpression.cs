@@ -17,7 +17,7 @@ namespace PrattParser.Expressions
 
         public string GetName() { return _name; }
 
-        public double Execute(params IExpression[] inputs)
+        public double Execute()
         {
             throw new NotImplementedException();
         }

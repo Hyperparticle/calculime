@@ -11,9 +11,9 @@ namespace PrattParser.Parsers
         private readonly IEnumerator<Token> _tokens;
         private readonly List<Token> _read = new List<Token>();
 
-        private readonly Dictionary<TokenType, IPrefixParselet> _dPrefixParselets =
+        private readonly Dictionary<TokenType, IPrefixParselet> _prefixParselets =
             new Dictionary<TokenType, IPrefixParselet>();
-        private readonly Dictionary<TokenType, IInfixParselet> _dInfixParselets =
+        private readonly Dictionary<TokenType, IInfixParselet> _infixParselets =
             new Dictionary<TokenType, IInfixParselet>();
 
         public Parser(IEnumerator<Token> tokens)
@@ -23,12 +23,12 @@ namespace PrattParser.Parsers
 
         public void Register(TokenType token, IPrefixParselet parselet)
         {
-            _dPrefixParselets[token] = parselet;
+            _prefixParselets[token] = parselet;
         }
 
         public void Register(TokenType token, IInfixParselet parselet)
         {
-            _dInfixParselets[token] = parselet;
+            _infixParselets[token] = parselet;
         }
 
         public IExpression ParseExpression(Precedence precedence = 0)
@@ -36,7 +36,7 @@ namespace PrattParser.Parsers
             var token = Consume();
 
             IPrefixParselet prefix;
-            if (!_dPrefixParselets.TryGetValue(token.GetTokenType(), out prefix))
+            if (!_prefixParselets.TryGetValue(token.GetTokenType(), out prefix))
                 throw new ParseException("Could not parse \'" + token.GetText() + "\'.");
             
             var left = prefix.Parse(this, token);
@@ -45,7 +45,7 @@ namespace PrattParser.Parsers
             {
                 token = Consume();
 
-                var infix = _dInfixParselets[token.GetTokenType()];
+                var infix = _infixParselets[token.GetTokenType()];
                 left = infix.Parse(this, left, token);
             }
 
@@ -99,7 +99,7 @@ namespace PrattParser.Parsers
         private Precedence GetPrecedence()
         {
             IInfixParselet parser;
-            if (!_dInfixParselets.TryGetValue(LookAhead(0).GetTokenType(), out parser))
+            if (!_infixParselets.TryGetValue(LookAhead(0).GetTokenType(), out parser))
                 return 0;
 
             return parser.GetPrecedence();

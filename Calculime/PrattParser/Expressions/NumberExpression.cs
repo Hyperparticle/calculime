@@ -20,7 +20,7 @@ namespace PrattParser.Expressions
         public string GetName() { return _name; }
         public double GetValue() { return _value; }
 
-        public double Execute(params IExpression[] inputs)
+        public double Execute()
         {
             return _value;
         }

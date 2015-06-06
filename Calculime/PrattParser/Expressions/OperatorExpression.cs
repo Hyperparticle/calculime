@@ -20,9 +20,9 @@ namespace PrattParser.Expressions
             _right = right;
         }
 
-        public double Execute(params IExpression[] inputs)
+        public double Execute()
         {
-            throw new NotImplementedException();
+            return Function.Execute(_left.Execute(), _operator, _right.Execute());
         }
 
         public void Print(StringBuilder builder)

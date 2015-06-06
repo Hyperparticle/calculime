@@ -6,6 +6,12 @@ namespace PrattParser.Parsers
     public class MathParser : Parser
     {
         /**
+        * Extends the generic Parser class with support for parsing the actual 
+        * Math grammar. Uses the default lexer.
+        */
+        public MathParser(string source) : this(new Lexer(source)) { }
+
+        /**
          * Extends the generic Parser class with support for parsing the actual 
          * Math grammar.
          */

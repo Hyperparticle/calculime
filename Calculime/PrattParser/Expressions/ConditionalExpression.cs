@@ -19,7 +19,7 @@ namespace PrattParser.Expressions
             _elseArm = elseArm;
         }
 
-        public double Execute(params IExpression[] inputs)
+        public double Execute()
         {
             throw new NotImplementedException();
         }

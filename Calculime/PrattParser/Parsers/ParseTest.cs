@@ -11,46 +11,54 @@ namespace PrattParser.Parsers
         public static void Parse()
         {
             // Function call.
-            Test("a()", "a()");
-            Test("a(b)", "a(b)");
-            Test("a(b, c)", "a(b, c)");
-            Test("a(b)(c)", "a(b)(c)");
-            Test("a(b) + c(d)", "(a(b) + c(d))");
-            Test("a(b ? c : d, e + f)", "a((b ? c : d), (e + f))");
+            TestPrint("a()", "a()");
+            TestPrint("a(b)", "a(b)");
+            TestPrint("a(b, c)", "a(b, c)");
+            TestPrint("a(b)(c)", "a(b)(c)");
+            TestPrint("a(b) + c(d)", "(a(b) + c(d))");
+            TestPrint("a(b ? c : d, e + f)", "a((b ? c : d), (e + f))");
     
             // Unary precedence.
-            Test("~!-+a", "(~(!(-(+a))))");
-            Test("a!!!", "(((a!)!)!)");
+            TestPrint("~!-+a", "(~(!(-(+a))))");
+            TestPrint("a!!!", "(((a!)!)!)");
     
             // Unary and binary predecence.
-            Test("-a * b", "((-a) * b)");
-            Test("!a + b", "((!a) + b)");
-            Test("~a ^ b", "((~a) ^ b)");
-            Test("-a!",    "(-(a!))");
-            Test("!a!",    "(!(a!))");
+            TestPrint("-a * b", "((-a) * b)");
+            TestPrint("!a + b", "((!a) + b)");
+            TestPrint("~a ^ b", "((~a) ^ b)");
+            TestPrint("-a!",    "(-(a!))");
+            TestPrint("!a!",    "(!(a!))");
     
             // Binary precedence.
-            Test("a = b + c * d ^ e - f / g", "(a = ((b + (c * (d ^ e))) - (f / g)))");
+            TestPrint("a = b + c * d ^ e - f / g", "(a = ((b + (c * (d ^ e))) - (f / g)))");
     
             // Binary associativity.
-            Test("a = b = c", "(a = (b = c))");
-            Test("a + b - c", "((a + b) - c)");
-            Test("a * b / c", "((a * b) / c)");
-            Test("a ^ b ^ c", "(a ^ (b ^ c))");
+            TestPrint("a = b = c", "(a = (b = c))");
+            TestPrint("a + b - c", "((a + b) - c)");
+            TestPrint("a * b / c", "((a * b) / c)");
+            TestPrint("a ^ b ^ c", "(a ^ (b ^ c))");
     
             // Conditional operator.
-            Test("a ? b : c ? d : e", "(a ? b : (c ? d : e))");
-            Test("a ? b ? c : d : e", "(a ? (b ? c : d) : e)");
-            Test("a + b ? c * d : e / f", "((a + b) ? (c * d) : (e / f))");
+            TestPrint("a ? b : c ? d : e", "(a ? b : (c ? d : e))");
+            TestPrint("a ? b ? c : d : e", "(a ? (b ? c : d) : e)");
+            TestPrint("a + b ? c * d : e / f", "((a + b) ? (c * d) : (e / f))");
     
             // Grouping.
-            Test("a + (b + c) + d", "((a + (b + c)) + d)");
-            Test("a ^ (b + c)", "(a ^ (b + c))");
-            Test("(!a)!",    "((!a)!)");
+            TestPrint("a + (b + c) + d", "((a + (b + c)) + d)");
+            TestPrint("a ^ (b + c)", "(a ^ (b + c))");
+            TestPrint("(!a)!",    "((!a)!)");
 
             // Numbers.
-            Test("-5.4 * .4", "((-5.4) * .4)");
-            Test("!0.02 + 7.", "((!0.02) + 7.)");
+            TestPrint("-5.4 * .4", "((-5.4) * .4)");
+            TestPrint("!0.02 + 7.", "((!0.02) + 7.)");
+
+            // Values.
+            TestValue("12 * 5", 60d);
+            TestValue("-3 + 4", 1d);
+            TestValue("5 * (3 + 4)", 35d);
+            TestValue("4 ^ 3 ^ 2", 262144d);
+            TestValue(".2 + 1.", 1.2d);
+            TestValue("---4 - --8", -12d);
     
             // Show the results.
             if (_failed == 0) {
@@ -66,10 +74,9 @@ namespace PrattParser.Parsers
          * Parses the given chunk of code and verifies that it matches the expected
          * pretty-printed result.
          */
-        public static void Test(string source, string expected) 
+        public static void TestPrint(string source, string expected) 
         {
-            var lexer = new Lexer(source);
-            Parser parser = new MathParser(lexer);
+            Parser parser = new MathParser(source);
     
             try 
             {
@@ -95,6 +102,38 @@ namespace PrattParser.Parsers
                 Console.WriteLine("[FAIL] Expected: " + expected);
                 Console.WriteLine("          Error: " + ex.Message);
             }
+        }
+
+        /**
+         * Parses the given chunk of code and verifies that it matches the expected
+         * executed value.
+         */
+        public static void TestValue(string source, double expected)
+        {
+            Parser parser = new MathParser(source);
+
+            try
+            {
+                var result = parser.ParseExpression();
+                var actual = result.Execute();
+
+                if (expected.Equals(actual))
+                {
+                    _passed++;
+                }
+                else
+                {
+                    _failed++;
+                    Console.WriteLine("[FAIL] Expected: " + expected);
+                    Console.WriteLine("         Actual: " + actual);
+                }
             }
+            catch (ParseException ex)
+            {
+                _failed++;
+                Console.WriteLine("[FAIL] Expected: " + expected);
+                Console.WriteLine("          Error: " + ex.Message);
+            }
+        }
     }
 }

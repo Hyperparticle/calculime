@@ -10,7 +10,7 @@ namespace PrattParser.Expressions
         /**
          * Execute the expression and return a result
          */
-        double Execute(params IExpression[] inputs);
+        double Execute();
 
         /**
          * Pretty-print the expression to a string.
