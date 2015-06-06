@@ -11,7 +11,6 @@ namespace PrattParser
         public MainWindow()
         {
             InitializeComponent();
-
             ParseTest.Parse();
         }
     }

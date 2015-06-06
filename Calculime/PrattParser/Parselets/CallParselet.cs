@@ -22,15 +22,16 @@ namespace PrattParser.Parselets
                 {
                     args.Add(parser.ParseExpression());
                 } while (parser.Match(TokenType.Comma));
+
                 parser.Consume(TokenType.RightParen);
             }
 
             return new CallExpression(left, args);
         }
 
-        public int GetPrecedence()
+        public Precedence GetPrecedence()
         {
-            return (int)Precedence.Call;
+            return Precedence.Call;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Calculime.Tokens.Values;
+﻿using Calculime.Tokens.Values;
 
 namespace Calculime.Tokens.Operations.UnaryOperations
 {

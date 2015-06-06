@@ -22,9 +22,9 @@ namespace PrattParser.Parselets
             return new AssignExpression(name, right);
         }
 
-        public int GetPrecedence()
+        public Precedence GetPrecedence()
         {
-            return (int)Precedence.Assignment;
+            return Precedence.Assignment;
         }
     }
 }

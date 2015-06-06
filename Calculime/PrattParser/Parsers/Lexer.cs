@@ -45,15 +45,32 @@ namespace PrattParser.Parsers
             {
                 var c = _text[_index++];
 
+                // Handle punctuation
                 if (_punctuators.ContainsKey(c))
                 {
-                    // Handle punctuation
                     Current = new Token(_punctuators[c], c.ToString());
                     return true;
-                } 
-                else if (char.IsLetter(c))
+                }
+
+                // Handle numbers
+                if (char.IsDigit(c) || c == Symbol.Period)
                 {
-                    // Handle names
+                    var start = _index - 1;
+                    while (_index < _text.Length)
+                    {
+                        if (!(char.IsDigit(c) || c == Symbol.Period)) break;
+                        _index++;
+                    }
+
+                    var number = _text.Substring(start, _index - start);
+
+                    Current = new Token(TokenType.Number, number);
+                    return true;
+                }
+
+                // Handle names
+                if (char.IsLetter(c))
+                {
                     var start = _index - 1;
                     while (_index < _text.Length)
                     {
@@ -65,10 +82,8 @@ namespace PrattParser.Parsers
                     Current = new Token(TokenType.Name, name);
                     return true;
                 }
-                else
-                {
-                    // Ignore all other characters
-                }
+
+                // Ignore all other characters
             }
 
             // Once we've reached the end of the string, just return EOF tokens. We'll

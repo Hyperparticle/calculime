@@ -10,9 +10,9 @@ namespace PrattParser.Parselets
      */
     public class PostfixOperatorParselet : IInfixParselet
     {
-        private readonly int _precedence;
+        private readonly Precedence _precedence;
 
-        public PostfixOperatorParselet(int precedence)
+        public PostfixOperatorParselet(Precedence precedence)
         {
             _precedence = precedence;
         }
@@ -22,7 +22,7 @@ namespace PrattParser.Parselets
             return new PostfixExpression(left, token.GetTokenType());
         }
 
-        public int GetPrecedence()
+        public Precedence GetPrecedence()
         {
             return _precedence;
         }

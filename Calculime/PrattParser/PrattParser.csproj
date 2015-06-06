@@ -75,6 +75,7 @@
     <Compile Include="Parsers\ParseTest.cs" />
     <Compile Include="Tokens\Function.cs" />
     <Compile Include="Tokens\Precedence.cs" />
+    <Compile Include="Tokens\Symbol.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenType.cs" />
     <Page Include="MainWindow.xaml">

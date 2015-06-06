@@ -15,6 +15,6 @@ namespace PrattParser.Parselets
     public interface IInfixParselet
     {
         IExpression Parse(Parser parser, IExpression left, Token token);
-        int GetPrecedence();
+        Precedence GetPrecedence();
     }
 }

@@ -31,7 +31,7 @@ namespace PrattParser.Parsers
             _dInfixParselets[token] = parselet;
         }
 
-        public IExpression ParseExpression(int precedence = 0)
+        public IExpression ParseExpression(Precedence precedence = 0)
         {
             var token = Consume();
 
@@ -96,7 +96,7 @@ namespace PrattParser.Parsers
             return _read[distance];
         }
 
-        private int GetPrecedence()
+        private Precedence GetPrecedence()
         {
             IInfixParselet parser;
             if (!_dInfixParselets.TryGetValue(LookAhead(0).GetTokenType(), out parser))

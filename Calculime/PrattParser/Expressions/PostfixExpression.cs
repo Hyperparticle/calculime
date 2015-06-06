@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using PrattParser.Tokens;
 
 namespace PrattParser.Expressions
@@ -19,7 +20,7 @@ namespace PrattParser.Expressions
 
         public double Execute(params IExpression[] inputs)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Print(StringBuilder builder)

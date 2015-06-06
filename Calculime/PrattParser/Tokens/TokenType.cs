@@ -19,6 +19,7 @@ namespace PrattParser.Tokens
         Question,
         Colon,
         Name,
+        Number,
         Eof
     }
 

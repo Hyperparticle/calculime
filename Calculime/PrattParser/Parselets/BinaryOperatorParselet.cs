@@ -11,10 +11,10 @@ namespace PrattParser.Parselets
      */
     public class BinaryOperatorParselet : IInfixParselet
     {
-        private readonly int _precedence;
+        private readonly Precedence _precedence;
         private readonly bool _isRight;
 
-        public BinaryOperatorParselet(int precedence, bool isRight)
+        public BinaryOperatorParselet(Precedence precedence, bool isRight)
         {
             _precedence = precedence;
             _isRight = isRight;
@@ -30,7 +30,7 @@ namespace PrattParser.Parselets
             return new OperatorExpression(left, token.GetTokenType(), right);
         }
 
-        public int GetPrecedence()
+        public Precedence GetPrecedence()
         {
             return _precedence;
         }

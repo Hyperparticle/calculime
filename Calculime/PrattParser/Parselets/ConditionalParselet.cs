@@ -18,9 +18,9 @@ namespace PrattParser.Parselets
             return new ConditionalExpression(left, thenArm, elseArm);
         }
 
-        public int GetPrecedence()
+        public Precedence GetPrecedence()
         {
-            return (int)Precedence.Conditional;
+            return Precedence.Conditional;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace PrattParser.Parsers
          */
         public void Postfix(TokenType token, Precedence precedence)
         {
-            Register(token, new PostfixOperatorParselet((int)precedence));
+            Register(token, new PostfixOperatorParselet(precedence));
         }
 
         /**
@@ -53,7 +53,7 @@ namespace PrattParser.Parsers
          */
         public void Prefix(TokenType token, Precedence precedence)
         {
-            Register(token, new PrefixOperatorParselet((int)precedence));
+            Register(token, new PrefixOperatorParselet(precedence));
         }
 
         /**
@@ -62,7 +62,7 @@ namespace PrattParser.Parsers
          */
         public void InfixLeft(TokenType token, Precedence precedence)
         {
-            Register(token, new BinaryOperatorParselet((int)precedence, false));
+            Register(token, new BinaryOperatorParselet(precedence, false));
         }
 
         /**
@@ -71,7 +71,7 @@ namespace PrattParser.Parsers
          */
         public void InfixRight(TokenType token, Precedence precedence)
         {
-            Register(token, new BinaryOperatorParselet((int)precedence, true));
+            Register(token, new BinaryOperatorParselet(precedence, true));
         }
     }
 }
