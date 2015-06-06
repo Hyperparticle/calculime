@@ -8,6 +8,11 @@ namespace PrattParser.Expressions
     public interface IExpression
     {
         /**
+         * Execute the expression and return a result
+         */
+        double Execute(params IExpression[] inputs);
+
+        /**
          * Pretty-print the expression to a string.
          */
         void Print(StringBuilder builder);

@@ -19,6 +19,11 @@ namespace PrattParser.Expressions
             _right = right;
         }
 
+        public double Execute(params IExpression[] inputs)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Print(StringBuilder builder)
         {
             builder.Append("(");

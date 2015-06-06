@@ -19,8 +19,8 @@ namespace PrattParser.Parsers
             Register(TokenType.Question,    new ConditionalParselet());
             Register(TokenType.LeftParen,   new GroupParselet());
             Register(TokenType.LeftParen,   new CallParselet());
-            Register(TokenType.RightParen,  new GroupParselet());
-            Register(TokenType.RightParen,  new CallParselet());
+            //Register(TokenType.RightParen,  new GroupParselet());
+            //Register(TokenType.RightParen,  new CallParselet());
 
             // Register the simple operator parselets.
             Prefix(TokenType.Plus,  Precedence.Prefix);

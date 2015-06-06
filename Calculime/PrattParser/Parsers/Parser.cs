@@ -34,6 +34,7 @@ namespace PrattParser.Parsers
         public IExpression ParseExpression(int precedence = 0)
         {
             var token = Consume();
+
             IPrefixParselet prefix;
             if (!_dPrefixParselets.TryGetValue(token.GetTokenType(), out prefix))
                 throw new ParseException("Could not parse \'" + token.GetText() + "\'.");

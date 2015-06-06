@@ -12,9 +12,14 @@ namespace PrattParser.Expressions
         public NameExpression(string name)
         {
             _name = name;
-        }
+        } 
 
         public string GetName() { return _name; }
+
+        public double Execute(params IExpression[] inputs)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public void Print(StringBuilder builder)
         {

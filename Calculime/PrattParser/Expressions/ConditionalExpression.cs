@@ -18,6 +18,11 @@ namespace PrattParser.Expressions
             _elseArm = elseArm;
         }
 
+        public double Execute(params IExpression[] inputs)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Print(StringBuilder builder)
         {
             builder.Append("(");

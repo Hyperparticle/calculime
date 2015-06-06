@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PrattParser.Tokens;
 
-namespace PrattParser
+namespace PrattParser.Parsers
 {
     /**
      * A very primitive lexer. Takes a string and splits it into a series of
@@ -16,8 +15,9 @@ namespace PrattParser
      */
     public class Lexer : IEnumerator<Token>
     {
-        private readonly Dictionary<char, TokenType> _dPunctuators =
+        private readonly Dictionary<char, TokenType> _punctuators =
             new Dictionary<char, TokenType>();
+
         private readonly string _text;
         private int _index = 0;
 
@@ -28,15 +28,71 @@ namespace PrattParser
         {
             _index = 0;
             _text = text;
+            Current = null;
 
             // Register all of the TokenTypes that are explicit punctuators.
-            foreach (TokenType type in TokenType.GetValues(typeof(TokenType)))
+            foreach (TokenType type in Enum.GetValues(typeof(TokenType)))
             {
                 char punctuator;
                 if (Table.DTokenString.TryGetValue(type, out punctuator))
-                    _dPunctuators.Add(punctuator, type);
-
+                    _punctuators.Add(punctuator, type);
             }
+        }
+
+        public bool MoveNext()
+        {
+            while (_index < _text.Length)
+            {
+                var c = _text[_index++];
+
+                if (_punctuators.ContainsKey(c))
+                {
+                    // Handle punctuation
+                    Current = new Token(_punctuators[c], c.ToString());
+                    return true;
+                } 
+                else if (char.IsLetter(c))
+                {
+                    // Handle names
+                    var start = _index - 1;
+                    while (_index < _text.Length)
+                    {
+                        if (!char.IsLetter(_text[_index])) break;
+                        _index++;
+                    }
+
+                    var name = _text.Substring(start, _index-start);
+                    Current = new Token(TokenType.Name, name);
+                    return true;
+                }
+                else
+                {
+                    // Ignore all other characters
+                }
+            }
+
+            // Once we've reached the end of the string, just return EOF tokens. We'll
+            // just keeping returning them as many times as we're asked so that the
+            // parser's lookahead doesn't have to worry about running out of tokens.
+            Current = new Token(TokenType.Eof, "");
+            return true;
+        }
+
+        public Token Current { get; private set; }
+
+        object IEnumerator.Current
+        {
+            get { return Current; }
+        }
+
+        public void Reset()
+        {
+            _index = 0;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

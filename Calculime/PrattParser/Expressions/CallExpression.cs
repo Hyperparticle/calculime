@@ -17,6 +17,11 @@ namespace PrattParser.Expressions
             _args = args;
         }
 
+        public double Execute(params IExpression[] inputs)
+        {
+            return _function.Execute(_args.ToArray());
+        }
+
         public void Print(StringBuilder builder)
         {
             _function.Print(builder);
@@ -24,7 +29,7 @@ namespace PrattParser.Expressions
             for (int i = 0; i < _args.Count; i++)
             {
                 _args[i].Print(builder);
-                if (i < _args.Count - 1) builder.Append(",");
+                if (i < _args.Count - 1) builder.Append(", ");
             }
             builder.Append(")");
         }
