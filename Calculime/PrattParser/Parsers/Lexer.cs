@@ -34,7 +34,7 @@ namespace PrattParser.Parsers
             foreach (TokenType type in Enum.GetValues(typeof(TokenType)))
             {
                 char punctuator;
-                if (Table.DTokenString.TryGetValue(type, out punctuator))
+                if (Table.TokenTypeToChar.TryGetValue(type, out punctuator))
                     _punctuators.Add(punctuator, type);
             }
         }

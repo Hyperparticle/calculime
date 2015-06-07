@@ -15,11 +15,14 @@ namespace Calculime
     {
         public static readonly bool DEBUG = true;
 
+        private readonly Brush _background;
+
         private readonly Parser _parser = new MathParser();
 
         public MainWindow()
         {
             InitializeComponent();
+            _background = InputTextBox.Background;
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
@@ -40,6 +43,7 @@ namespace Calculime
 
 		private void Calculate(bool showHistory)
 		{
+            InputTextBox.Background = _background;
 			var expression = InputTextBox.Text;
 
 		    if (string.IsNullOrWhiteSpace(expression))
@@ -53,8 +57,7 @@ namespace Calculime
 		        var result = _parser.Execute(expression);
 
                 OutputTextBlock.Text = result.ToString();
-		        InputTextBox.Background = SystemColors.WindowBrush;
-                
+		        
                 if (showHistory)
                 {
                     HistoryListView.Items.Add(
@@ -65,7 +68,7 @@ namespace Calculime
 		    {
                 if (DEBUG)
                     Console.WriteLine(e.Message);
-		        InputTextBox.Background = Brushes.IndianRed;
+		        InputTextBox.Background = Brushes.Firebrick;
 		    }
 		}
 

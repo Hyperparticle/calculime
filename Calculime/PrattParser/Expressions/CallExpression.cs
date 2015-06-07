@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using PrattParser.Exceptions;
+using PrattParser.Tokens;
 
 namespace PrattParser.Expressions
 {
@@ -28,7 +29,14 @@ namespace PrattParser.Expressions
                 return _function.Execute() * _args[0].Execute();
             }
 
-            return _function.Execute();
+            var function = (NameExpression)_function;
+            var type = Table.StringToFunctionType[function.GetName()];
+
+            var args = new double[_args.Count];
+            for (int i = 0; i < args.Length; i++)
+                args[i] = _args[i].Execute();
+
+            return Function.Execute(type, args);
         }
 
         public void Print(StringBuilder builder)
