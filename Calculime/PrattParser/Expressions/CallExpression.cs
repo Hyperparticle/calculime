@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using PrattParser.Exceptions;
 
 namespace PrattParser.Expressions
 {
@@ -19,6 +20,14 @@ namespace PrattParser.Expressions
 
         public double Execute()
         {
+            // Implicitly multiply if number preceeds group expression
+            if (_function is NumberExpression)
+            {
+                if (_args.Count > 1)
+                    throw new ParseException("Error: multiple arguments not allowed for implicit multiplication.");
+                return _function.Execute() * _args[0].Execute();
+            }
+
             return _function.Execute();
         }
 

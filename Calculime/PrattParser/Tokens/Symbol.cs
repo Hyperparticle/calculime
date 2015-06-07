@@ -24,6 +24,8 @@
             Pipe = '|',
             Question = '?',
             Period = '.',
-            Space = ' ';
+            Space = ' ',
+            Zero = '0',
+            One = '1';
     }
 }

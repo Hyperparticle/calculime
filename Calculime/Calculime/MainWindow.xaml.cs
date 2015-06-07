@@ -13,6 +13,8 @@ namespace Calculime
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static readonly bool DEBUG = true;
+
         private readonly Parser _parser = new MathParser();
 
         public MainWindow()
@@ -40,6 +42,12 @@ namespace Calculime
 		{
 			var expression = InputTextBox.Text;
 
+		    if (string.IsNullOrWhiteSpace(expression))
+		    {
+		        OutputTextBlock.Text = Symbol.Zero.ToString();
+		        return;
+		    }
+
 		    try
 		    {
 		        var result = _parser.Execute(expression);
@@ -49,11 +57,14 @@ namespace Calculime
                 
                 if (showHistory)
                 {
-                    HistoryListView.Items.Add(new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
+                    HistoryListView.Items.Add(
+                        new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
                 }
 		    }
-		    catch (Exception)
+		    catch (Exception e)
 		    {
+                if (DEBUG)
+                    Console.WriteLine(e.Message);
 		        InputTextBox.Background = Brushes.IndianRed;
 		    }
 		}

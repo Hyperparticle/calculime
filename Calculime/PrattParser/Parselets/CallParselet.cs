@@ -12,8 +12,16 @@ namespace PrattParser.Parselets
     {
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
+            if (left is NumberExpression)
+            {
+                //var right = parser.ParseExpression();
+               // parser.Consume(TokenType.RightParen);
+
+               // return new OperatorExpression(left, TokenType.Asterisk, right);
+            }
+
             // Parse the comma-separated arguments until we hit, ")".
-            List<IExpression> args = new List<IExpression>();
+            var args = new List<IExpression>();
 
             // There may be no arguments at all.
             if (!parser.Match(TokenType.RightParen))

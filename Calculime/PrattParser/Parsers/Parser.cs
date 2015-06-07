@@ -108,11 +108,11 @@ namespace PrattParser.Parsers
 
         private Precedence GetPrecedence()
         {
-            IInfixParselet parser;
-            if (!_infixParselets.TryGetValue(LookAhead(0).GetTokenType(), out parser))
-                return 0;
+            IInfixParselet parselet;
+            TokenType type = LookAhead(0).GetTokenType();
 
-            return parser.GetPrecedence();
+            return (_infixParselets.TryGetValue(type, out parselet))
+                ? parselet.GetPrecedence() : 0;
         }
     }
 }
