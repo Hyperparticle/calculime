@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,11 +14,12 @@ namespace Calculime
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static readonly bool DEBUG = true;
+        public static readonly bool Debug = true;
 
         private readonly Brush _background;
 
         private readonly Parser _parser = new MathParser();
+        private readonly List<double> _results = new List<double>();    // Keep a list of outputted results
 
         public MainWindow()
         {
@@ -33,15 +35,13 @@ namespace Calculime
 
 		private void InputTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
-		    var keyPressed = e.Key;
-
-			if (keyPressed == Key.Enter)
+			if (e.Key == Key.Enter)
 			{
 				Calculate(true);
 			}
 		}
 
-		private void Calculate(bool showHistory)
+		private void Calculate(bool output)
 		{
             InputTextBox.Background = _background;
 			var expression = InputTextBox.Text;
@@ -57,17 +57,20 @@ namespace Calculime
 		        var result = _parser.Execute(expression);
 
                 OutputTextBlock.Text = result.ToString();
-		        
-                if (showHistory)
-                {
-                    HistoryListView.Items.Add(
-                        new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
-                }
+
+		        if (!output) return;
+		        _results.Add(result);
+		        HistoryListView.Items.Add(
+		            new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
 		    }
 		    catch (Exception e)
 		    {
-                if (DEBUG)
+		        if (Debug)
+		        {
                     Console.WriteLine(e.Message);
+                    DebugLabel.Content = e.Message;
+		        }
+                    
 		        InputTextBox.Background = Brushes.Firebrick;
 		    }
 		}

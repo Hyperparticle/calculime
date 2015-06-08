@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using PrattParser.Tokens;
 
 namespace PrattParser.Expressions
 {
@@ -19,7 +20,8 @@ namespace PrattParser.Expressions
 
         public double Execute()
         {
-            throw new NotImplementedException();
+            var name = _name.ToLower();
+            return Table.StringToValue[name];
         }
 
         public void Print(StringBuilder builder)

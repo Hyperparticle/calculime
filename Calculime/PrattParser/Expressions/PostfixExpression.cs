@@ -20,7 +20,7 @@ namespace PrattParser.Expressions
 
         public double Execute()
         {
-            throw new NotImplementedException();
+            return Function.Execute(_operator, _left.Execute());
         }
 
         public void Print(StringBuilder builder)

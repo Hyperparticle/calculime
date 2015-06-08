@@ -29,26 +29,31 @@ namespace PrattParser.Expressions
                 return _function.Execute() * _args[0].Execute();
             }
 
-            var function = (NameExpression)_function;
-            var type = Table.StringToFunctionType[function.GetName()];
-
-            var args = new double[_args.Count];
-            for (int i = 0; i < args.Length; i++)
-                args[i] = _args[i].Execute();
-
-            return Function.Execute(type, args);
+            return ExecuteFunction((NameExpression)_function);
         }
 
         public void Print(StringBuilder builder)
         {
             _function.Print(builder);
             builder.Append("(");
-            for (int i = 0; i < _args.Count; i++)
+            for (var i = 0; i < _args.Count; i++)
             {
                 _args[i].Print(builder);
                 if (i < _args.Count - 1) builder.Append(", ");
             }
             builder.Append(")");
+        }
+
+        private double ExecuteFunction(NameExpression function)
+        {
+            var name = function.GetName().ToLower();
+            var type = Table.StringToFunctionType[name];
+
+            var args = new double[_args.Count];
+            for (var i = 0; i < args.Length; i++)
+                args[i] = _args[i].Execute();
+
+            return Function.Execute(type, args);
         }
     }
 }

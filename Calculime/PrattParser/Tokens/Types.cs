@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PrattParser.Tokens
@@ -30,7 +31,16 @@ namespace PrattParser.Tokens
         Tangent,
         Arcsine,
         Arccosine,
-        Arctangent
+        Arctangent,
+        AbsoluteValue,
+        NaturalLog,
+        LogBase10,
+        SquareRoot,
+        Round,
+        Floor,
+        Ceiling,
+        Max,
+        Min
     }
 
     public static class Table
@@ -65,10 +75,24 @@ namespace PrattParser.Tokens
             { "tan", FunctionType.Tangent },
             { "asin", FunctionType.Arcsine },
             { "acos", FunctionType.Arccosine },
-            { "atan", FunctionType.Arctangent }
+            { "atan", FunctionType.Arctangent },
+            { "abs", FunctionType.AbsoluteValue },
+            { "ln", FunctionType.NaturalLog },
+            { "log", FunctionType.NaturalLog },
+            { "log10", FunctionType.LogBase10 },
+            { "sqrt", FunctionType.SquareRoot },
+            { "round", FunctionType.Round },
+            { "floor", FunctionType.Floor },
+            { "ceiling", FunctionType.Ceiling },
+            { "max", FunctionType.Max },
+            { "min", FunctionType.Min }
         };
 
-        public static readonly Dictionary<FunctionType, string> FunctionTypeToString =
-            StringToFunctionType.ToDictionary(x => x.Value, x => x.Key);
+        public static readonly Dictionary<string, double> StringToValue =
+        new Dictionary<string, double>()
+        {
+            { "pi", Math.PI },
+            { "e", Math.E }
+        };
     }
 }

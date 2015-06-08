@@ -20,7 +20,8 @@ namespace PrattParser.Tokens
             new Dictionary<TokenType, UnaryDelegate>()
             {
                 { TokenType.Plus, Identity },
-                { TokenType.Minus, Negate }
+                { TokenType.Minus, Negate },
+                { TokenType.Bang, Factorial }
             };
 
         private static readonly Dictionary<FunctionType, MultiDelegate> TrigFunction =
@@ -31,7 +32,16 @@ namespace PrattParser.Tokens
                 { FunctionType.Tangent, Tan },
                 { FunctionType.Arcsine, Asin },
                 { FunctionType.Arccosine, Acos },
-                { FunctionType.Arctangent, Atan }
+                { FunctionType.Arctangent, Atan },
+                { FunctionType.AbsoluteValue, Abs },
+                { FunctionType.NaturalLog, Log },
+                { FunctionType.LogBase10, Log10 },
+                { FunctionType.SquareRoot, Sqrt },
+                { FunctionType.Round, Round },
+                { FunctionType.Floor, Floor },
+                { FunctionType.Ceiling, Ceiling },
+                { FunctionType.Max, Max },
+                { FunctionType.Min, Min }
             };
 
         public static double Execute(double left, TokenType type, double right)
@@ -94,54 +104,113 @@ namespace PrattParser.Tokens
             return -value;
         }
 
+        private static double Factorial(double value)
+        {
+            value = Math.Round(value);
+            return (value <= 1) ? 1 : value*Factorial(value - 1);
+        }
+
         // TRIGONOMETRIC FUNCTIONS
 
         private static double Sin(params double[] values)
         {
-            if (values.Length != 1)
-                throw new ParseException("Error: too many arguments.");
-
+            TestArgs(values.Length, 1);
             return Math.Sin(values[0]);
         }
 
         private static double Cos(params double[] values)
         {
-            if (values.Length != 1)
-                throw new ParseException("Error: too many arguments.");
-
+            TestArgs(values.Length, 1);
             return Math.Cos(values[0]);
         }
 
         private static double Tan(params double[] values)
         {
-            if (values.Length != 1)
-                throw new ParseException("Error: too many arguments.");
-
+            TestArgs(values.Length, 1);
             return Math.Tan(values[0]);
         }
 
         private static double Asin(params double[] values)
         {
-            if (values.Length != 1)
-                throw new ParseException("Error: too many arguments.");
-
+            TestArgs(values.Length, 1);
             return Math.Asin(values[0]);
         }
 
         private static double Acos(params double[] values)
         {
-            if (values.Length != 1)
-                throw new ParseException("Error: too many arguments.");
-
+            TestArgs(values.Length, 1);
             return Math.Acos(values[0]);
         }
 
         private static double Atan(params double[] values)
         {
-            if (values.Length != 1)
-                throw new ParseException("Error: too many arguments.");
-
+            TestArgs(values.Length, 1);
             return Math.Atan(values[0]);
+        }
+
+        // ALGEBRAIC FUNCTIONS
+
+        private static double Abs(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Abs(values[0]);
+        }
+
+        private static double Log(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Log(values[0]);
+        }
+
+        private static double Log10(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Log10(values[0]);
+        }
+
+        private static double Sqrt(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Sqrt(values[0]);
+        }
+
+        private static double Round(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Round(values[0]);
+        }
+
+        private static double Floor(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Floor(values[0]);
+        }
+
+        private static double Ceiling(params double[] values)
+        {
+            TestArgs(values.Length, 1);
+            return Math.Ceiling(values[0]);
+        }
+
+        // COMPARISON FUNCTIONS
+
+        private static double Max(params double[] values)
+        {
+            TestArgs(values.Length, 2);
+            return Math.Max(values[0], values[1]);
+        }
+
+        private static double Min(params double[] values)
+        {
+            TestArgs(values.Length, 2);
+            return Math.Min(values[0], values[1]);
+        }
+
+        private static void TestArgs(int number, int expected)
+        {
+            if (number != expected)
+                throw new ParseException("Error: incorrect number of arguments. " +
+                                         "Expected " + expected + ". Got " + number);
         }
     }
 }
