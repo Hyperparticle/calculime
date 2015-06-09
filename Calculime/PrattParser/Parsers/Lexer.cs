@@ -15,9 +15,6 @@ namespace PrattParser.Parsers
      */
     public class Lexer : IEnumerator<Token>
     {
-        private readonly Dictionary<char, TokenType> _punctuators =
-            new Dictionary<char, TokenType>();
-
         private readonly string _text;
         private int _index;
 
@@ -29,14 +26,6 @@ namespace PrattParser.Parsers
             _index = 0;
             _text = text;
             Current = null;
-
-            // Register all of the TokenTypes that are explicit punctuators.
-            foreach (TokenType type in Enum.GetValues(typeof(TokenType)))
-            {
-                char punctuator;
-                if (Table.TokenTypeToChar.TryGetValue(type, out punctuator))
-                    _punctuators.Add(punctuator, type);
-            }
         }
 
         public bool MoveNext()
@@ -46,9 +35,9 @@ namespace PrattParser.Parsers
                 var c = _text[_index++];
 
                 // Handle punctuation
-                if (_punctuators.ContainsKey(c))
+                if (Table.CharToTokenType.ContainsKey(c))
                 {
-                    Current = new Token(_punctuators[c], c.ToString());
+                    Current = new Token(Table.CharToTokenType[c], c.ToString());
                     return true;
                 }
 
@@ -74,7 +63,8 @@ namespace PrattParser.Parsers
                     var start = _index - 1;
                     while (_index < _text.Length)
                     {
-                        if (!char.IsLetter(_text[_index])) break;
+                        var text = _text[_index];
+                        if (!char.IsLetter(text) && !char.IsDigit(text)) break;
                         _index++;
                     }
 

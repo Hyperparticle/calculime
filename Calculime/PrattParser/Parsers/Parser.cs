@@ -46,6 +46,8 @@ namespace PrattParser.Parsers
             
             var left = prefix.Parse(this, token);
 
+            // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
+            // An enumerator is used, so precedence will change based on current position
             while (precedence < GetPrecedence())
             {
                 token = Consume();
@@ -64,7 +66,7 @@ namespace PrattParser.Parsers
 
         public bool Match(TokenType expected)
         {
-            var token = LookAhead(0);
+            var token = LookAhead();
             if (token.GetTokenType() != expected)
                 return false;
 
@@ -74,7 +76,7 @@ namespace PrattParser.Parsers
 
         public Token Consume(TokenType expected)
         {
-            var token = LookAhead(0);
+            var token = LookAhead();
             if (token.GetTokenType() != expected)
                 throw new Exception("Expected token \'" + expected + 
                     "\' and found \'" + token.GetTokenType() + " \'");
@@ -85,7 +87,7 @@ namespace PrattParser.Parsers
         public Token Consume()
         {
             // Make sure we've read the token.
-            LookAhead(0);
+            LookAhead();
 
             var next = _read[0];
             _read.RemoveAt(0);
@@ -93,7 +95,7 @@ namespace PrattParser.Parsers
             return next;
         }
 
-        private Token LookAhead(int distance)
+        private Token LookAhead(int distance = 0)
         {
             // Read in as many as needed.
             while (distance >= _read.Count)
@@ -109,7 +111,7 @@ namespace PrattParser.Parsers
         private Precedence GetPrecedence()
         {
             IInfixParselet parselet;
-            TokenType type = LookAhead(0).GetTokenType();
+            var type = LookAhead().GetTokenType();
 
             return (_infixParselets.TryGetValue(type, out parselet))
                 ? parselet.GetPrecedence() : 0;

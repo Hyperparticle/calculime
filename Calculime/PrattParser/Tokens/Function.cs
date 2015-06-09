@@ -6,204 +6,94 @@ namespace PrattParser.Tokens
 {
     public class Function
     {
-        private static readonly Dictionary<TokenType, BinaryDelegate> BinaryFunction =
-            new Dictionary<TokenType, BinaryDelegate>()
-            {
-                { TokenType.Plus, Add },
-                { TokenType.Minus, Subtract },
-                { TokenType.Asterisk, Multiply },
-                { TokenType.Slash, Divide },
-                { TokenType.Caret, Exponentiate }
-            };
-
-        private static readonly Dictionary<TokenType, UnaryDelegate> UnaryFunction =
-            new Dictionary<TokenType, UnaryDelegate>()
-            {
-                { TokenType.Plus, Identity },
-                { TokenType.Minus, Negate },
-                { TokenType.Bang, Factorial }
-            };
-
-        private static readonly Dictionary<FunctionType, MultiDelegate> TrigFunction =
-            new Dictionary<FunctionType, MultiDelegate>()
-            {
-                { FunctionType.Sine, Sin },
-                { FunctionType.Cosine, Cos },
-                { FunctionType.Tangent, Tan },
-                { FunctionType.Arcsine, Asin },
-                { FunctionType.Arccosine, Acos },
-                { FunctionType.Arctangent, Atan },
-                { FunctionType.AbsoluteValue, Abs },
-                { FunctionType.NaturalLog, Log },
-                { FunctionType.LogBase10, Log10 },
-                { FunctionType.SquareRoot, Sqrt },
-                { FunctionType.Round, Round },
-                { FunctionType.Floor, Floor },
-                { FunctionType.Ceiling, Ceiling },
-                { FunctionType.Max, Max },
-                { FunctionType.Min, Min }
-            };
-
-        public static double Execute(double left, TokenType type, double right)
-        {
-            return BinaryFunction[type].Invoke(left, right);
-        }
-
-        public static double Execute(TokenType type, double right)
-        {
-            return UnaryFunction[type].Invoke(right);
-        }
-
-        public static double Execute(FunctionType type, params double[] args)
-        {
-            return TrigFunction[type].Invoke(args);
-        }
-
         private delegate double UnaryDelegate(double value);
         private delegate double BinaryDelegate(double value1, double value2);
         private delegate double MultiDelegate(params double[] values);
 
+        private static readonly Dictionary<TokenType, UnaryDelegate> UnaryOperator =
+            new Dictionary<TokenType, UnaryDelegate>()
+            {
+                { TokenType.Plus, x => x },
+                { TokenType.Minus, x => -x },
+                { TokenType.Bang, Factorial }
+            };
+        private static readonly Dictionary<TokenType, BinaryDelegate> BinaryOperator =
+            new Dictionary<TokenType, BinaryDelegate>()
+            {
+                { TokenType.Plus, (x,y) => x + y },
+                { TokenType.Minus, (x,y) => x - y },
+                { TokenType.Asterisk, (x,y) => x * y },
+                { TokenType.Slash, (x,y) => x / y },
+                { TokenType.Caret, Math.Pow },
+                { TokenType.Percent, (x,y) => x % y }
+            };
 
-        // TOKEN FUNCTIONS
-        // Binary functions
+        private static readonly Dictionary<string, UnaryDelegate> UnaryFunction =
+            new Dictionary<string, UnaryDelegate>()
+            {
+                { "sin",  Math.Sin },
+                { "cos", Math.Cos },
+                { "tan", Math.Tan },
+                { "asin", Math.Asin },
+                { "acos", Math.Acos },
+                { "atan", Math.Atan },
+                { "sinh",  Math.Sinh },
+                { "cosh", Math.Cosh },
+                { "tanh", Math.Tanh },
+                { "abs", Math.Abs },
+                { "ln", Math.Log },
+                { "log", Math.Log },
+                { "log10", Math.Log10 },
+                { "sqrt", Math.Sqrt },
+                { "round", Math.Round },
+                { "floor", Math.Floor },
+                { "ceil", Math.Ceiling },
+                { "ceiling", Math.Ceiling }
+            };
 
-        private static double Add(double value1, double value2)
+        private static readonly Dictionary<string, BinaryDelegate> BinaryFunction =
+            new Dictionary<string, BinaryDelegate>()
+            {
+                { "min",  Math.Min },
+                { "max", Math.Max },
+                { "rem", (x,y) => x % y },
+                { "remainder", (x,y) => x % y }
+            };
+
+        // Overloaded execute command to handle different cases
+        public static double Execute(double left, TokenType type, double right)
         {
-            return value1 + value2;
+            return BinaryOperator[type].Invoke(left, right);
         }
 
-        private static double Subtract(double value1, double value2)
+        public static double Execute(TokenType type, double right)
         {
-            return value1 - value2;
+            return UnaryOperator[type].Invoke(right);
         }
 
-        private static double Multiply(double value1, double value2)
+        public static double Execute(string function, params double[] args)
         {
-            return value1 * value2;
+            switch (args.Length)
+            {
+                case 1:
+                    return UnaryFunction[function].Invoke(args[0]);
+                case 2:
+                    return BinaryFunction[function].Invoke(args[0], args[1]);
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
-        private static double Divide(double value1, double value2)
-        {
-            return value1 / value2;
-        }
-
-        private static double Exponentiate(double value1, double value2)
-        {
-            return Math.Pow(value1, value2);
-        }
-
-        // Unary functions
-
-        private static double Identity(double value)
-        {
-            return value;
-        }
-
-        private static double Negate(double value)
-        {
-            return -value;
-        }
-
+        // CUSTOM FUNCTIONS
         private static double Factorial(double value)
         {
-            value = Math.Round(value);
-            return (value <= 1) ? 1 : value*Factorial(value - 1);
-        }
+            double result = 1;
+            for (var i = 2; i <= value; i++)
+            {
+                result *= i;
+            }
 
-        // TRIGONOMETRIC FUNCTIONS
-
-        private static double Sin(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Sin(values[0]);
-        }
-
-        private static double Cos(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Cos(values[0]);
-        }
-
-        private static double Tan(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Tan(values[0]);
-        }
-
-        private static double Asin(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Asin(values[0]);
-        }
-
-        private static double Acos(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Acos(values[0]);
-        }
-
-        private static double Atan(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Atan(values[0]);
-        }
-
-        // ALGEBRAIC FUNCTIONS
-
-        private static double Abs(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Abs(values[0]);
-        }
-
-        private static double Log(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Log(values[0]);
-        }
-
-        private static double Log10(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Log10(values[0]);
-        }
-
-        private static double Sqrt(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Sqrt(values[0]);
-        }
-
-        private static double Round(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Round(values[0]);
-        }
-
-        private static double Floor(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Floor(values[0]);
-        }
-
-        private static double Ceiling(params double[] values)
-        {
-            TestArgs(values.Length, 1);
-            return Math.Ceiling(values[0]);
-        }
-
-        // COMPARISON FUNCTIONS
-
-        private static double Max(params double[] values)
-        {
-            TestArgs(values.Length, 2);
-            return Math.Max(values[0], values[1]);
-        }
-
-        private static double Min(params double[] values)
-        {
-            TestArgs(values.Length, 2);
-            return Math.Min(values[0], values[1]);
+            return result;
         }
 
         private static void TestArgs(int number, int expected)

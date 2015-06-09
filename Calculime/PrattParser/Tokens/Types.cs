@@ -19,6 +19,7 @@ namespace PrattParser.Tokens
         Bang,
         Question,
         Colon,
+        Percent,
         Name,
         Number,
         Eof
@@ -61,32 +62,12 @@ namespace PrattParser.Tokens
             { '~', TokenType.Tilde },
             { '!', TokenType.Bang },
             { '?', TokenType.Question },
-            { ':', TokenType.Colon }
+            { ':', TokenType.Colon },
+            { '%', TokenType.Percent }
         };
 
         public static readonly Dictionary<TokenType, char> TokenTypeToChar = 
             CharToTokenType.ToDictionary(x => x.Value, x => x.Key);
-
-        public static readonly Dictionary<string, FunctionType> StringToFunctionType =
-        new Dictionary<string, FunctionType>()
-        {
-            { "sin", FunctionType.Sine },
-            { "cos", FunctionType.Cosine },
-            { "tan", FunctionType.Tangent },
-            { "asin", FunctionType.Arcsine },
-            { "acos", FunctionType.Arccosine },
-            { "atan", FunctionType.Arctangent },
-            { "abs", FunctionType.AbsoluteValue },
-            { "ln", FunctionType.NaturalLog },
-            { "log", FunctionType.NaturalLog },
-            { "log10", FunctionType.LogBase10 },
-            { "sqrt", FunctionType.SquareRoot },
-            { "round", FunctionType.Round },
-            { "floor", FunctionType.Floor },
-            { "ceiling", FunctionType.Ceiling },
-            { "max", FunctionType.Max },
-            { "min", FunctionType.Min }
-        };
 
         public static readonly Dictionary<string, double> StringToValue =
         new Dictionary<string, double>()

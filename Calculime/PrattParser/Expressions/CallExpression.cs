@@ -47,13 +47,12 @@ namespace PrattParser.Expressions
         private double ExecuteFunction(NameExpression function)
         {
             var name = function.GetName().ToLower();
-            var type = Table.StringToFunctionType[name];
 
             var args = new double[_args.Count];
             for (var i = 0; i < args.Length; i++)
                 args[i] = _args[i].Execute();
 
-            return Function.Execute(type, args);
+            return Function.Execute(name, args);
         }
     }
 }
