@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using PrattParser;
 using PrattParser.Parsers;
 using PrattParser.Tokens;
 
@@ -19,11 +19,12 @@ namespace Calculime
         private readonly Brush _background;
 
         private readonly Parser _parser = new MathParser();
-        private readonly List<double> _results = new List<double>();    // Keep a list of outputted results
+        
 
         public MainWindow()
         {
             InitializeComponent();
+
             _background = InputTextBox.Background;
         }
 
@@ -59,9 +60,11 @@ namespace Calculime
                 OutputTextBlock.Text = result.ToString();
 
 		        if (!output) return;
-		        _results.Add(result);
+                Memory.AddResult(result);
 		        HistoryListView.Items.Add(
 		            new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
+
+                Calculate(false);
 		    }
 		    catch (Exception e)
 		    {
@@ -142,6 +145,17 @@ namespace Calculime
         private void InputTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             Calculate(false);
+        }
+
+        private void TitleBar_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
+
+        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 

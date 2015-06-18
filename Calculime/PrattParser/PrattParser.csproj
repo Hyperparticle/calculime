@@ -46,6 +46,7 @@
     <Compile Include="Expressions\OperatorExpression.cs" />
     <Compile Include="Expressions\PostfixExpression.cs" />
     <Compile Include="Expressions\PrefixExpression.cs" />
+    <Compile Include="Memory.cs" />
     <Compile Include="Parselets\AssignParselet.cs" />
     <Compile Include="Parselets\BinaryOperatorParselet.cs" />
     <Compile Include="Parselets\CallParselet.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Tokens\Symbol.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\Types.cs" />
+    <Compile Include="Tokens\Value.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

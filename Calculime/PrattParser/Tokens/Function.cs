@@ -48,7 +48,8 @@ namespace PrattParser.Tokens
                 { "round", Math.Round },
                 { "floor", Math.Floor },
                 { "ceil", Math.Ceiling },
-                { "ceiling", Math.Ceiling }
+                { "ceiling", Math.Ceiling },
+                { "prev", Memory.GetResult }
             };
 
         private static readonly Dictionary<string, BinaryDelegate> BinaryFunction =

@@ -48,7 +48,7 @@ namespace PrattParser.Tokens
     {
         // Dictionaries to convert between strings and their type
         public static readonly Dictionary<char, TokenType> CharToTokenType = 
-        new Dictionary<char, TokenType>()
+        new Dictionary<char, TokenType>
         {
             { '(', TokenType.LeftParen },
             { ')', TokenType.RightParen },
@@ -68,12 +68,5 @@ namespace PrattParser.Tokens
 
         public static readonly Dictionary<TokenType, char> TokenTypeToChar = 
             CharToTokenType.ToDictionary(x => x.Value, x => x.Key);
-
-        public static readonly Dictionary<string, double> StringToValue =
-        new Dictionary<string, double>()
-        {
-            { "pi", Math.PI },
-            { "e", Math.E }
-        };
     }
 }

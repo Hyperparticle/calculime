@@ -7,10 +7,14 @@ using PrattParser.Tokens;
 
 namespace PrattParser.Parsers
 {
+    /// <summary>
+    /// A Recursive Descent Pratt Parser.
+    /// Responsible for parsing string expressions.
+    /// </summary>
     public class Parser
     {
-        private IEnumerator<Token> _tokens;
-        private List<Token> _read;
+        private IEnumerator<Token> _tokens;     // Will iterate through the string expression
+        private List<Token> _read;              // A queue to read in characters
 
         private readonly Dictionary<TokenType, IPrefixParselet> _prefixParselets =
             new Dictionary<TokenType, IPrefixParselet>();
