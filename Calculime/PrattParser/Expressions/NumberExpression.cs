@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace PrattParser.Expressions
 {
@@ -13,8 +15,25 @@ namespace PrattParser.Expressions
         public NumberExpression(string name)
         {
             _name = name;
+
+            // Special characters change number's base
+            if (name.Length >= 2)
+            {
+                var prefix = name.Substring(0, 2);
+
+                switch (prefix)
+                {
+                    case "0x":
+                        _value = Convert.ToInt64(name, 16);
+                        return;
+                    case "0b":
+                        _value = Convert.ToInt64(name.Substring(2, name.Length-2), 2);
+                        return;
+                }
+            }
+
             _value = double.Parse(name);
-        } 
+        }
 
         public string GetName() { return _name; }
         public double GetValue() { return _value; }

@@ -21,7 +21,7 @@ namespace PrattParser.Expressions
         public double Execute()
         {
             var name = _name.ToLower();
-            return Value.StringToValue[name];
+            return Value.StringToConstant[name];
         }
 
         public void Print(StringBuilder builder)

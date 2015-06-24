@@ -15,6 +15,9 @@ namespace PrattParser.Parsers
      */
     public class Lexer : IEnumerator<Token>
     {
+        private const char HexChar = 'x';
+        private const char BinaryChar = 'b';
+
         private readonly string _text;
         private int _index;
 
@@ -33,11 +36,23 @@ namespace PrattParser.Parsers
             while (_index < _text.Length)
             {
                 var c = _text[_index++];
+                var s = c.ToString();
 
                 // Handle punctuation
                 if (Table.CharToTokenType.ContainsKey(c))
                 {
-                    Current = new Token(Table.CharToTokenType[c], c.ToString());
+                    var start = _index - 1;
+
+                    while (_index < _text.Length)
+                    {
+                        var nextSymbol = _text.Substring(start, _index - start + 1);
+                        if (!Table.StringToTokenType.ContainsKey(nextSymbol)) break;
+                        _index++;
+                    }
+
+                    var symbol = _text.Substring(start, _index - start);
+
+                    Current = new Token(Table.StringToTokenType[symbol], symbol);
                     return true;
                 }
 
@@ -45,12 +60,26 @@ namespace PrattParser.Parsers
                 if (char.IsDigit(c) || c == Symbol.Period)
                 {
                     var start = _index - 1;
-                    while (_index < _text.Length)
-                    {
-                        if (!(char.IsDigit(_text[_index]) || _text[_index] == Symbol.Period)) break;
-                        _index++;
-                    }
 
+                    if (c == Symbol.Zero && _text.Length > 2 && (_text[_index] == HexChar || _text[_index] == BinaryChar))
+                    {
+                        _index++;
+
+                        while (_index < _text.Length)
+                        {
+                            if (!(char.IsLetterOrDigit(_text[_index]))) break;
+                            _index++;
+                        }
+                    }
+                    else
+                    {
+                        while (_index < _text.Length)
+                        {
+                            if (!(char.IsDigit(_text[_index]) || _text[_index] == Symbol.Period)) break;
+                            _index++;
+                        }
+                    }
+                    
                     var number = _text.Substring(start, _index - start);
 
                     Current = new Token(TokenType.Number, number);

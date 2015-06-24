@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using PrattParser.Exceptions;
 
 namespace PrattParser.Tokens
@@ -11,25 +12,30 @@ namespace PrattParser.Tokens
         private delegate double MultiDelegate(params double[] values);
 
         private static readonly Dictionary<TokenType, UnaryDelegate> UnaryOperator =
-            new Dictionary<TokenType, UnaryDelegate>()
+            new Dictionary<TokenType, UnaryDelegate>
             {
                 { TokenType.Plus, x => x },
                 { TokenType.Minus, x => -x },
-                { TokenType.Bang, Factorial }
+                { TokenType.Bang, Factorial },
+                { TokenType.Tilde, x => ~(int)x }
             };
         private static readonly Dictionary<TokenType, BinaryDelegate> BinaryOperator =
-            new Dictionary<TokenType, BinaryDelegate>()
+            new Dictionary<TokenType, BinaryDelegate>
             {
                 { TokenType.Plus, (x,y) => x + y },
                 { TokenType.Minus, (x,y) => x - y },
                 { TokenType.Asterisk, (x,y) => x * y },
                 { TokenType.Slash, (x,y) => x / y },
                 { TokenType.Caret, Math.Pow },
-                { TokenType.Percent, (x,y) => x % y }
+                { TokenType.Percent, (x,y) => x % y },
+                { TokenType.Ampersand, (x,y) => (int)x & (int)y },
+                { TokenType.Pipe, (x,y) => (int)x | (int)y },
+                { TokenType.BitLeft, (x,y) => (int)x << (int)y },
+                { TokenType.BitRight, (x,y) => (int)x >> (int)y },
             };
 
         private static readonly Dictionary<string, UnaryDelegate> UnaryFunction =
-            new Dictionary<string, UnaryDelegate>()
+            new Dictionary<string, UnaryDelegate>
             {
                 { "sin",  Math.Sin },
                 { "cos", Math.Cos },
@@ -53,7 +59,7 @@ namespace PrattParser.Tokens
             };
 
         private static readonly Dictionary<string, BinaryDelegate> BinaryFunction =
-            new Dictionary<string, BinaryDelegate>()
+            new Dictionary<string, BinaryDelegate>
             {
                 { "min",  Math.Min },
                 { "max", Math.Max },

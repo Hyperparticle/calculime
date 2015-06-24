@@ -9,13 +9,22 @@
     public enum Precedence
     {
         // Ordered in increasing precedence.
-        Assignment  = 1,
-        Conditional = 2,
-        Sum         = 3,
-        Product     = 4,
-        Exponent    = 5,
-        Prefix      = 6,
-        Postfix     = 7,
-        Call        = 8
+        Default,        // 0
+        Assignment,     // 1, etc.
+        Conditional,
+        ConditionalOr,
+        ConditionalAnd,
+        LogicalOr,
+        LogicalXor,
+        LogicalAnd,
+        Equality,
+        Relational,
+        Shift,
+        Sum,
+        Product,
+        Exponent,
+        Prefix,
+        Postfix,
+        Call
     }
 }

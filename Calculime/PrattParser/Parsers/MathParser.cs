@@ -28,9 +28,16 @@ namespace PrattParser.Parsers
 
             InfixLeft(TokenType.Plus, Precedence.Sum);
             InfixLeft(TokenType.Minus, Precedence.Sum);
+
             InfixLeft(TokenType.Asterisk, Precedence.Product);
             InfixLeft(TokenType.Slash, Precedence.Product);
             InfixLeft(TokenType.Percent, Precedence.Product);
+            
+            InfixLeft(TokenType.Ampersand, Precedence.LogicalAnd);
+            InfixLeft(TokenType.Pipe, Precedence.LogicalOr);
+            InfixLeft(TokenType.BitLeft, Precedence.Shift);
+            InfixLeft(TokenType.BitRight, Precedence.Shift);
+
             InfixRight(TokenType.Caret, Precedence.Exponent);
         }
 

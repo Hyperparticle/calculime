@@ -9,7 +9,8 @@ namespace PrattParser
 {
     public class Memory
     {
-        private static readonly List<double> Results = new List<double>();    // Keep a list of outputted results
+        // Keep a list of outputted results
+        private static readonly List<double> Results = new List<double>();    
 
         public static void AddResult(double result)
         {

@@ -10,7 +10,7 @@ namespace PrattParser.Tokens
     {
         public static readonly double Default = 0;
 
-        public static readonly Dictionary<string, double> StringToValue =
+        public static readonly Dictionary<string, double> StringToConstant =
             new Dictionary<string, double>
             {
                 { "pi", Math.PI },

@@ -15,11 +15,17 @@ namespace PrattParser.Tokens
         Asterisk,
         Slash,
         Caret,
-        Tilde,
         Bang,
         Question,
         Colon,
         Percent,
+        Tilde,
+        Ampersand,
+        Pipe,
+        LessThan,
+        GreaterThan,
+        BitLeft,
+        BitRight,
         Name,
         Number,
         Eof
@@ -47,7 +53,7 @@ namespace PrattParser.Tokens
     public static class Table
     {
         // Dictionaries to convert between strings and their type
-        public static readonly Dictionary<char, TokenType> CharToTokenType = 
+        public static readonly Dictionary<char, TokenType> CharToTokenType =
         new Dictionary<char, TokenType>
         {
             { '(', TokenType.LeftParen },
@@ -59,14 +65,43 @@ namespace PrattParser.Tokens
             { '*', TokenType.Asterisk },
             { '/', TokenType.Slash },
             { '^', TokenType.Caret },
-            { '~', TokenType.Tilde },
             { '!', TokenType.Bang },
             { '?', TokenType.Question },
             { ':', TokenType.Colon },
-            { '%', TokenType.Percent }
+            { '%', TokenType.Percent },
+            { '~', TokenType.Tilde },
+            { '&', TokenType.Ampersand },
+            { '|', TokenType.Pipe },
+            { '<', TokenType.LessThan },
+            { '>', TokenType.GreaterThan }
         };
 
-        public static readonly Dictionary<TokenType, char> TokenTypeToChar = 
-            CharToTokenType.ToDictionary(x => x.Value, x => x.Key);
+        public static readonly Dictionary<string, TokenType> StringToTokenType = 
+        new Dictionary<string, TokenType>
+        {
+            { "(", TokenType.LeftParen },
+            { ")", TokenType.RightParen },
+            { ",", TokenType.Comma },
+            { "=", TokenType.Assign },
+            { "+", TokenType.Plus },
+            { "-", TokenType.Minus },
+            { "*", TokenType.Asterisk },
+            { "/", TokenType.Slash },
+            { "^", TokenType.Caret },
+            { "!", TokenType.Bang },
+            { "?", TokenType.Question },
+            { ":", TokenType.Colon },
+            { "%", TokenType.Percent },
+            { "~", TokenType.Tilde },
+            { "&", TokenType.Ampersand },
+            { "|", TokenType.Pipe },
+            { "<", TokenType.LessThan },
+            { ">", TokenType.GreaterThan },
+            { "<<", TokenType.BitLeft },
+            { ">>", TokenType.BitRight }
+        };
+
+        public static readonly Dictionary<TokenType, string> TokenTypeToString = 
+            StringToTokenType.ToDictionary(x => x.Value, x => x.Key);
     }
 }

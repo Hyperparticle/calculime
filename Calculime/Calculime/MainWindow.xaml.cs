@@ -26,6 +26,9 @@ namespace Calculime
             InitializeComponent();
 
             _background = InputTextBox.Background;
+
+            //var url = new Uri("C:/Users/Dan/OneDrive/Creations/Coding/Visual Studio/Calculime/Calculime/MathJax/sample-dynamic.html");
+            //Browser.Navigate(url);
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
@@ -42,13 +45,19 @@ namespace Calculime
 			}
 		}
 
+        /// <summary>
+        /// Attempts to execute the parsed expression and outputs 
+        /// the result.
+        /// </summary>
+        /// <param name="output">Whether or not the result is initiated</param>
 		private void Calculate(bool output)
 		{
             InputTextBox.Background = _background;
-			var expression = InputTextBox.Text;
+		    var expression = InputTextBox.Text;
 
 		    if (string.IsNullOrWhiteSpace(expression))
 		    {
+		        InputTextBox.Text = "";
 		        OutputTextBlock.Text = Symbol.Zero.ToString();
 		        return;
 		    }
@@ -64,7 +73,7 @@ namespace Calculime
 		        HistoryListView.Items.Add(
 		            new HistoryItem { Expression = expression, Result = OutputTextBlock.Text });
 
-                Calculate(false);
+                Calculate(false); // Recalculate the result
 		    }
 		    catch (Exception e)
 		    {
@@ -119,7 +128,8 @@ namespace Calculime
 			else if (source.Equals(NineButton))
 				InputTextBox.Text += 9;
 			else if (source.Equals(DecimalButton))
-				InputTextBox.Text += Symbol.Period;
+                InputTextBox.Text += Symbol.Period;
+				
 
 		    InputTextBox.Focus();
 		}

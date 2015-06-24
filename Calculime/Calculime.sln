@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculime", "Calculime\Calc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrattParser", "PrattParser\PrattParser.csproj", "{579C732C-6BCC-46E3-8D55-842CF465289C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathJax", "MathJax\MathJax.csproj", "{DAF1E411-7C55-4D40-A19A-6EDC2ECB887B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{579C732C-6BCC-46E3-8D55-842CF465289C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{579C732C-6BCC-46E3-8D55-842CF465289C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{579C732C-6BCC-46E3-8D55-842CF465289C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF1E411-7C55-4D40-A19A-6EDC2ECB887B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF1E411-7C55-4D40-A19A-6EDC2ECB887B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF1E411-7C55-4D40-A19A-6EDC2ECB887B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF1E411-7C55-4D40-A19A-6EDC2ECB887B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

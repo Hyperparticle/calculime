@@ -27,7 +27,7 @@ namespace PrattParser.Expressions
         {
             builder.Append("(");
             _left.Print(builder);
-            builder.Append(Table.TokenTypeToChar[_operator]).Append(")");
+            builder.Append(Table.TokenTypeToString[_operator]).Append(")");
         }
     }
 }
