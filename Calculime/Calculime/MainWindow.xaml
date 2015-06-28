@@ -17,6 +17,17 @@
         <TabControl Grid.Row="1" Background="#FF443E3D">
             <TabItem Header="Standard">
                 <StackPanel>
+                    
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBox}" x:Key="ColoredCaretStyle">
+                            <Setter Property="CaretBrush">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="LimeGreen"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                    
                     <ListView x:Name="HistoryListView" Height="140">
                         <ListView.View>
                             <GridView>
@@ -25,8 +36,12 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <TextBlock x:Name="OutputTextBlock" TextWrapping="Wrap" Text="0" Height="26" Background="#FF443E3D" Foreground="#FF736B68"/>
-                    <TextBox x:Name="InputTextBox" Height="23" TextWrapping="Wrap" Background="#FF736B68" Foreground="#FFA69C9C" KeyDown="InputTextBox_KeyDown" TextChanged="InputTextBox_OnTextChanged"/>
+                    
+                    <TextBox x:Name="OutputTextBox" Height="25" Background="Transparent" Foreground="#FF736B68" BorderThickness="0" Text="0" IsReadOnly="True" TextWrapping="Wrap" />
+                    <TextBox x:Name="InputFormattedTextBox" Height="25" Background="Transparent" Foreground="#FF736B68" BorderThickness="0" Text="" IsReadOnly="True" TextWrapping="Wrap" />
+
+                    <TextBox x:Name="InputTextBox" Height="25" TextWrapping="Wrap" Background="#FF736B68" Foreground="#FFA69C9C" KeyDown="InputTextBox_KeyDown" PreviewKeyDown="InputTextBox_OnPreviewKeyDown" TextChanged="InputTextBox_OnTextChanged" Style="{StaticResource ColoredCaretStyle}"/>
+                    
                     <Grid Height="200">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -62,7 +77,9 @@
                         <Button x:Name="AnswerButton" Content="ANS" Grid.Row="3" Grid.Column="3" Background="#FF00A651" BorderThickness="0.1" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"/>
                         <Button x:Name="EqualsButton" Content="=" Grid.Row="3" Grid.Column="4" Click="CalculateButton_Click" Background="#FF00A651" BorderThickness="0.1" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"/>
                     </Grid>
+                    
                     <Label x:Name="DebugLabel" Content="" FontSize="10"/>
+                    
                 </StackPanel>
             </TabItem>
             <TabItem Header="View">

@@ -1,8 +1,11 @@
 ﻿namespace PrattParser.Tokens
 {
+    /// <summary>
+    /// Contains definitions for common symbols
+    /// </summary>
     public class Symbol
     {
-        public static readonly char
+        public const char
             Plus = '+',
             Minus = '-',
             Asterisk = '*',
@@ -27,5 +30,8 @@
             Space = ' ',
             Zero = '0',
             One = '1';
+
+        public const string 
+            Empty = "";
     }
 }
