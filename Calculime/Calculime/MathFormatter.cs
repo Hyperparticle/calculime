@@ -1,18 +1,11 @@
-﻿using System.Linq;
-using PrattParser.Tokens;
+﻿using PrattParser.Tokens;
 
 namespace Calculime
 {
     public class MathFormatter
     {
-        private string _expression;
-
-        private int _parens; // TODO: Properly format parentheses
-
         public string Format(string expression)
         {
-            _expression = expression;
-
             // Base Case
             if (string.IsNullOrWhiteSpace(expression))
                 return Symbol.Zero.ToString();
