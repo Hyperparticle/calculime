@@ -18,5 +18,7 @@ namespace PrattParser.Tokens
                 {"phi", Constants.GoldenRatio},
                 {"gamma", Constants.EulerMascheroni}
             };
+
+        public static readonly Dictionary<string, double> UserConstants = new Dictionary<string, double>();
     }
 }

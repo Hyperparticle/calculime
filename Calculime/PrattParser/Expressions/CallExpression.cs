@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using PrattParser.Exceptions;
 using PrattParser.Tokens;
@@ -24,7 +25,7 @@ namespace PrattParser.Expressions
             //// Implicitly multiply if number preceeds group expression
             //if (_function is NumberExpression)
             //{
-            //    if (_args.Count > 1)
+            //    if (_args.Count != 1)
             //        throw new ParseException("Error: multiple arguments not allowed for implicit multiplication.");
             //    return _function.Execute() * _args[0].Execute();
             //}
@@ -47,10 +48,7 @@ namespace PrattParser.Expressions
         private double ExecuteFunction(NameExpression function)
         {
             var name = function.GetName().ToLower();
-
-            var args = new double[_args.Count];
-            for (var i = 0; i < args.Length; i++)
-                args[i] = _args[i].Execute();
+            var args = _args.Select(x => x.Execute()).ToArray();
 
             return Function.Execute(name, args);
         }

@@ -52,12 +52,21 @@ namespace PrattParser.Parsers
 
             // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
             // An enumerator is used, so precedence will change based on current position
-            while (precedence < GetPrecedence())
+            while (precedence < GetPrecedence(token))
             {
                 token = Consume();
 
                 var infix = _infixParselets[token.GetTokenType()];
+
                 left = infix.Parse(this, left, token);
+            }
+
+            var next = LookAhead().GetTokenType();
+            // If the token is not empty, perform implicit multiplication
+            if (next != TokenType.Eof && next != TokenType.RightParen)
+            {
+                var infix = _infixParselets[TokenType.Asterisk];
+                left = infix.Parse(this, left, Token.Product());
             }
 
             return left;
@@ -112,11 +121,14 @@ namespace PrattParser.Parsers
             return _read[distance];
         }
 
-        private Precedence GetPrecedence()
+        private Precedence GetPrecedence(Token prevToken)
         {
             IInfixParselet parselet;
             var type = LookAhead().GetTokenType();
 
+            if (type == TokenType.LeftParen && Value.StringToConstant.ContainsKey(prevToken.GetText()))
+                return 0;
+            
             return (_infixParselets.TryGetValue(type, out parselet))
                 ? parselet.GetPrecedence() : 0;
         }

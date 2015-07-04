@@ -18,5 +18,10 @@
         public string GetText() { return _text; }
 
         public override string ToString() { return _text; }
+
+        public static Token Product()
+        {
+            return new Token(TokenType.Asterisk, Symbol.Asterisk.ToString());
+        }
     }
 }

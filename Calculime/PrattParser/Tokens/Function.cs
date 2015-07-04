@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using MathNet.Numerics;
+using MathNet.Numerics.Statistics;
 
 namespace PrattParser.Tokens
 {
+    /// <summary>
+    /// The Function class maps input to output. It takes user input, executes
+    /// the appropriate function, and produces a valued output.
+    /// </summary>
     public class Function
     {
         private static readonly Random Rand = new Random();
@@ -65,7 +70,9 @@ namespace PrattParser.Tokens
                 {"floor", Math.Floor},
                 {"ceil", Math.Ceiling},
                 {"ceiling", Math.Ceiling},
-                {"prev", Memory.GetResult}
+                {"prev", Memory.GetResult},
+                {"degtorad", Trig.DegreeToRadian},
+                {"radtodeg", Trig.RadianToDegree}
             };
 
         private static readonly Dictionary<string, BinaryDelegate> BinaryFunction =
@@ -73,7 +80,8 @@ namespace PrattParser.Tokens
             {
                 {"atan2", Math.Atan2},
                 {"rem", Euclid.Remainder},
-                {"mod", Euclid.Modulus}
+                {"mod", Euclid.Modulus},
+                {"hyp", SpecialFunctions.Hypotenuse}
             };
 
         private static readonly Dictionary<string, MultiDelegate> MultiFunction =
@@ -83,7 +91,11 @@ namespace PrattParser.Tokens
                 {"max", x => x.Max()},
                 {"sum", x => x.Sum()},
                 {"avg", x => x.Average()},
-                {"count", x => x.Count()}
+                {"count", x => x.Count()},
+                {"mean", Statistics.Mean},
+                {"median", Statistics.Median},
+                {"variance", Statistics.Variance},
+                {"stdev", Statistics.StandardDeviation}
             };
 
         // Overloaded execute command to handle different cases

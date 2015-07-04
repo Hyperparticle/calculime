@@ -36,7 +36,6 @@ namespace PrattParser.Parsers
             while (_index < _text.Length)
             {
                 var c = _text[_index++];
-                var s = c.ToString();
 
                 // Handle punctuation
                 if (Table.CharToTokenType.ContainsKey(c))

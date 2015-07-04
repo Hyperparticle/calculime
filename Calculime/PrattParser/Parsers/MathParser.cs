@@ -23,16 +23,25 @@ namespace PrattParser.Parsers
             Prefix(TokenType.Tilde, Precedence.Prefix);
             Prefix(TokenType.Bang, Precedence.Prefix);
 
+            // Implicit Multiplication
+            //Prefix(TokenType.Name, Precedence.Product);
+            //Prefix(TokenType.Number, Precedence.Product);
+
             // For kicks, we'll make "!" both prefix and postfix, kind of like ++.
             Postfix(TokenType.Bang, Precedence.Postfix);
 
+            // Sum and Product operators
             InfixLeft(TokenType.Plus, Precedence.Sum);
             InfixLeft(TokenType.Minus, Precedence.Sum);
 
             InfixLeft(TokenType.Asterisk, Precedence.Product);
             InfixLeft(TokenType.Slash, Precedence.Product);
             InfixLeft(TokenType.Percent, Precedence.Product);
+
+            //InfixLeft(TokenType.Name, Precedence.Product);
+            //InfixLeft(TokenType.Number, Precedence.Product);
             
+            // Bitwise operators
             InfixLeft(TokenType.Ampersand, Precedence.LogicalAnd);
             InfixLeft(TokenType.Pipe, Precedence.LogicalOr);
             InfixLeft(TokenType.BitLeft, Precedence.Shift);

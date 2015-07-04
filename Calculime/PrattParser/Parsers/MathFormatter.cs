@@ -1,6 +1,6 @@
 ﻿using PrattParser.Tokens;
 
-namespace Calculime
+namespace PrattParser.Parsers
 {
     public class MathFormatter
     {
@@ -12,7 +12,7 @@ namespace Calculime
 
             // Insert Parentheses
             expression = FormatParentheses(expression);
-            expression = FormatImplicit(expression);
+            //expression = FormatImplicit(expression);
 
             // TODO: Format the expression
 
@@ -23,7 +23,7 @@ namespace Calculime
         {
             var openParens = 0;
 
-            foreach (var c in expression)
+            foreach (char c in expression)
             {
                 switch (c)
                 {

@@ -22,12 +22,24 @@ namespace PrattParser.Parselets
 
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
+            var tokenType = token.GetTokenType();
+
+            //if (tokenType == TokenType.Name)
+            //{
+            //    return new OperatorExpression(left, TokenType.Asterisk, new NameExpression(token.GetText()));
+            //}
+            
+            //if (tokenType == TokenType.Number)
+            //{
+            //    return new OperatorExpression(left, TokenType.Asterisk, new NumberExpression(token.GetText()));
+            //}
+
             // To handle right-associative operators like "^", we allow a slightly
             // lower precedence when parsing the right-hand side. This will let a
             // parselet with the same precedence appear on the right, which will then
             // take *this* parselet's result as its left-hand argument.
             var right = parser.ParseExpression(_precedence - (_isRight ? 1 : 0));
-            return new OperatorExpression(left, token.GetTokenType(), right);
+            return new OperatorExpression(left, tokenType, right);
         }
 
         public Precedence GetPrecedence()
