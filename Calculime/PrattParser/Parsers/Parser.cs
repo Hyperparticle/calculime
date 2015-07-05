@@ -13,8 +13,10 @@ namespace PrattParser.Parsers
     /// </summary>
     public class Parser
     {
-        private IEnumerator<Token> _tokens;     // Will iterate through the string expression
-        private List<Token> _read;              // A queue to read in characters
+        //private IEnumerator<Token> _tokens;     // Will iterate through the string expression
+        //private List<Token> _read;              // A queue to read in characters
+        private List<Token> _tokenList; 
+        private int _index;
 
         private readonly Dictionary<TokenType, IPrefixParselet> _prefixParselets =
             new Dictionary<TokenType, IPrefixParselet>();
@@ -33,16 +35,15 @@ namespace PrattParser.Parsers
 
         public IExpression ParseExpression(string expression)
         {
-            _tokens = new Lexer(expression);
-            _read = new List<Token>();
+            var lexer = new MathLexer(expression);
+            _tokenList = lexer.GetTokens();
+            _index = 0;
             return ParseExpression();
         }
 
         public IExpression ParseExpression(Precedence precedence = 0)
         {
-            if (_tokens == null) return null;
-
-            var token = Consume();
+            var token = NextToken();
 
             IPrefixParselet prefix;
             if (!_prefixParselets.TryGetValue(token.GetTokenType(), out prefix))
@@ -52,22 +53,23 @@ namespace PrattParser.Parsers
 
             // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
             // An enumerator is used, so precedence will change based on current position
-            while (precedence < GetPrecedence(token))
+            while (precedence < GetPrecedence())
             {
-                token = Consume();
+                token = NextToken();
 
                 var infix = _infixParselets[token.GetTokenType()];
 
                 left = infix.Parse(this, left, token);
             }
 
-            var next = LookAhead().GetTokenType();
-            // If the token is not empty, perform implicit multiplication
-            if (next != TokenType.Eof && next != TokenType.RightParen)
-            {
-                var infix = _infixParselets[TokenType.Asterisk];
-                left = infix.Parse(this, left, Token.Product());
-            }
+            //// If the next token is not an infix operator, perform implicit multiplication
+            //var prev = token.GetTokenType();
+            //var next = LookAhead().GetTokenType();
+            //if (prev == TokenType.Number || prev == TokenType.Name || )
+            //{
+            //    var infix = _infixParselets[TokenType.Asterisk];
+            //    left = infix.Parse(this, left, Token.Product());
+            //}
 
             return left;
         }
@@ -83,7 +85,7 @@ namespace PrattParser.Parsers
             if (token.GetTokenType() != expected)
                 return false;
 
-            Consume();
+            NextToken();
             return true;
         }
 
@@ -94,41 +96,33 @@ namespace PrattParser.Parsers
                 throw new Exception("Expected token \'" + expected + 
                     "\' and found \'" + token.GetTokenType() + " \'");
 
-            return Consume();
+            return NextToken();
         }
 
-        public Token Consume()
+        public Token NextToken()
         {
-            // Make sure we've read the token.
-            LookAhead();
+            return _tokenList[_index++];
+        }
 
-            var next = _read[0];
-            _read.RemoveAt(0);
-
-            return next;
+        public Token Revert()
+        {
+            return _tokenList[--_index];
         }
 
         private Token LookAhead(int distance = 0)
         {
-            // Read in as many as needed.
-            while (distance >= _read.Count)
-            {
-                _tokens.MoveNext();
-                _read.Add(_tokens.Current);
-            }
-
-            // Get the queued token.
-            return _read[distance];
+            // Once we've reached the end of the string, just return EOF tokens. We'll
+            // just keeping returning them as many times as we're asked so that the
+            // parser's lookahead doesn't have to worry about running out of tokens.
+            return _index + distance < _tokenList.Count ?
+                _tokenList[_index + distance] : new Token(TokenType.Eof, "");
         }
 
-        private Precedence GetPrecedence(Token prevToken)
+        private Precedence GetPrecedence()
         {
             IInfixParselet parselet;
             var type = LookAhead().GetTokenType();
 
-            if (type == TokenType.LeftParen && Value.StringToConstant.ContainsKey(prevToken.GetText()))
-                return 0;
-            
             return (_infixParselets.TryGetValue(type, out parselet))
                 ? parselet.GetPrecedence() : 0;
         }

@@ -22,9 +22,9 @@
         Shift,
         Sum,
         Product,
-        Exponent,
         Prefix,
         Postfix,
+        Exponent,
         Call
     }
 }

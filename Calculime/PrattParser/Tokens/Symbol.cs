@@ -29,7 +29,8 @@
             Period = '.',
             Space = ' ',
             Zero = '0',
-            One = '1';
+            One = '1',
+            E = 'E';
 
         public const string 
             Empty = "";

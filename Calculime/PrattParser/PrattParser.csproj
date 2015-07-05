@@ -59,6 +59,7 @@
     <Compile Include="Parselets\PrefixOperatorParselet.cs" />
     <Compile Include="Parsers\Lexer.cs" />
     <Compile Include="Parsers\MathFormatter.cs" />
+    <Compile Include="Parsers\MathLexer.cs" />
     <Compile Include="Parsers\MathParser.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
     <Compile Include="Parsers\Parser.cs" />

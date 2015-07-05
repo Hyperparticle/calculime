@@ -12,13 +12,14 @@ namespace PrattParser.Parselets
     {
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
-            if (left is NumberExpression)
-            {
-                //var right = parser.ParseExpression();
-               // parser.Consume(TokenType.RightParen);
+            //// Perform Implicit Multiplication if the left expression is not a NameExpression
+            //if (!(left is NameExpression))
+            //{
+            //    var right = parser.ParseExpression();
+            //    parser.Consume(TokenType.RightParen);
 
-               // return new OperatorExpression(left, TokenType.Asterisk, right);
-            }
+            //    return new OperatorExpression(left, TokenType.Asterisk, right);
+            //}
 
             // Parse the comma-separated arguments until we hit, ")".
             var args = new List<IExpression>();

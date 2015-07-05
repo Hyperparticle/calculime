@@ -58,7 +58,7 @@ namespace PrattParser
             Assert("4.35718618402138E+21*2", ((double) 4.35718618402138E+21)*2);
             Assert("10E10*2", ((double) 10E10)*2);
 
-            Assert("ln(3^e)", Math.Log(Math.Pow(3, Math.E), Math.E /*3*/));
+            Assert("ln(3^e)", Math.Log(Math.Pow(3, Math.E), Math.E));
 
             Assert("Log(1000)", 3);
             Assert("Log(27, 3)", 3);

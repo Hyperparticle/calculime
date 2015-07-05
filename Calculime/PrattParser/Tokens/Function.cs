@@ -7,8 +7,8 @@ using MathNet.Numerics.Statistics;
 namespace PrattParser.Tokens
 {
     /// <summary>
-    /// The Function class maps input to output. It takes user input, executes
-    /// the appropriate function, and produces a valued output.
+    /// The Function class maps input to output. It takes user input, finds
+    /// the appropriate function, executes it, and produces a valued output.
     /// </summary>
     public class Function
     {
@@ -19,6 +19,8 @@ namespace PrattParser.Tokens
         private delegate double BinaryDelegate(double value1, double value2);
         private delegate double MultiDelegate(params double[] values);
 
+        // Here we are mapping TokenTypes to their respective functions. If a token 
+        // was a unary minus, I want to return the function f(x) = -x.
         private static readonly Dictionary<TokenType, UnaryDelegate> UnaryOperator =
             new Dictionary<TokenType, UnaryDelegate>
             {
@@ -79,6 +81,7 @@ namespace PrattParser.Tokens
             new Dictionary<string, BinaryDelegate>
             {
                 {"atan2", Math.Atan2},
+                {"log", Math.Log},
                 {"rem", Euclid.Remainder},
                 {"mod", Euclid.Modulus},
                 {"hyp", SpecialFunctions.Hypotenuse}
@@ -98,7 +101,9 @@ namespace PrattParser.Tokens
                 {"stdev", Statistics.StandardDeviation}
             };
 
-        // Overloaded execute command to handle different cases
+        // Overloaded execute command to handle different cases. We find the 
+        // function corresponding to the TokenType/string and invoke it with 
+        // the arguments specified.
         public static double Execute(double left, TokenType type, double right)
         {
             return BinaryOperator[type].Invoke(left, right);
