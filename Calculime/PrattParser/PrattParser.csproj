@@ -37,10 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Expressions\AssignExpression.cs" />
-    <Compile Include="Expressions\CallExpression.cs" />
+    <Compile Include="Expressions\FunctionExpression.cs" />
     <Compile Include="Expressions\ConditionalExpression.cs" />
     <Compile Include="Expressions\IExpression.cs" />
-    <Compile Include="Expressions\NameExpression.cs" />
+    <Compile Include="Expressions\ValueExpression.cs" />
     <Compile Include="Expressions\NumberExpression.cs" />
     <Compile Include="Expressions\OperatorExpression.cs" />
     <Compile Include="Expressions\PostfixExpression.cs" />
@@ -48,16 +48,17 @@
     <Compile Include="Memory.cs" />
     <Compile Include="Parselets\AssignParselet.cs" />
     <Compile Include="Parselets\BinaryOperatorParselet.cs" />
-    <Compile Include="Parselets\CallParselet.cs" />
+    <None Include="Parselets\CallParselet.cs" />
     <Compile Include="Parselets\ConditionalParselet.cs" />
     <Compile Include="Parselets\GroupParselet.cs" />
     <Compile Include="Parselets\IInfixParselet.cs" />
     <Compile Include="Parselets\IPrefixParselet.cs" />
-    <Compile Include="Parselets\NameParselet.cs" />
+    <Compile Include="Parselets\ValueParselet.cs" />
     <Compile Include="Parselets\NumberParselet.cs" />
     <Compile Include="Parselets\PostfixOperatorParselet.cs" />
     <Compile Include="Parselets\PrefixOperatorParselet.cs" />
-    <Compile Include="Parsers\Lexer.cs" />
+    <Compile Include="Parselets\FunctionParselet.cs" />
+    <None Include="Parsers\Lexer.cs" />
     <Compile Include="Parsers\MathFormatter.cs" />
     <Compile Include="Parsers\MathLexer.cs" />
     <Compile Include="Parsers\MathParser.cs" />

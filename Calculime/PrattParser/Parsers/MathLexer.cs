@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using PrattParser.Tokens;
 
 namespace PrattParser.Parsers
@@ -95,7 +97,21 @@ namespace PrattParser.Parsers
             }
 
             var name = _expression.Substring(start, _index - start);
-            var token = new Token(TokenType.Name, name);
+
+            Token token;
+            if (Function.IsFunction(name))
+            {
+                token = new Token(TokenType.Function, name);
+            }
+            else if (Value.IsValue(name))
+            {
+                token = new Token(TokenType.Value, name);
+            }
+            else
+            {
+                throw new NotImplementedException(string.Format("Token {0} not supported", name));
+            }
+
             _tokenList.Add(token);
         }
     }

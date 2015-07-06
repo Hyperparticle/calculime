@@ -8,7 +8,7 @@ namespace PrattParser.Tokens
     {
         public static readonly double Default = 0;
 
-        public static readonly Dictionary<string, double> StringToConstant =
+        private static readonly Dictionary<string, double> StringToConstant =
             new Dictionary<string, double>
             {
                 {"pi", Math.PI},
@@ -20,5 +20,22 @@ namespace PrattParser.Tokens
             };
 
         public static readonly Dictionary<string, double> UserConstants = new Dictionary<string, double>();
+
+        public static bool IsValue(string name)
+        {
+            return (StringToConstant.ContainsKey(name) || UserConstants.ContainsKey(name));
+        }
+
+        public static double GetValue(string name)
+        {
+            double value;
+
+            if (StringToConstant.TryGetValue(name, out value))
+                return value;
+            if (UserConstants.TryGetValue(name, out value))
+                return value;
+
+            throw new NotImplementedException(string.Format("The value {0} is not implemented.", name));
+        }
     }
 }

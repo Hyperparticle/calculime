@@ -16,10 +16,10 @@ namespace PrattParser.Parselets
         {
             var right = parser.ParseExpression((int)Precedence.Assignment - 1);
 
-            if (!(left is NameExpression))
+            if (!(left is ValueExpression))
                 throw new ParseException("The left-hand side of an assignment must be a name.");
 
-            var name = ((NameExpression)left).GetName();
+            var name = ((ValueExpression)left).GetName();
             return new AssignExpression(name, right);
         }
 

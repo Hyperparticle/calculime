@@ -1,30 +1,28 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using PrattParser.Tokens;
 
 namespace PrattParser.Expressions
 {
     /**
-     * A simple variable name expression like "abc".
+     * A simple variable value expression like "pi".
      */
-    public class NameExpression : IExpression
+    public class ValueExpression : IExpression
     {
         private readonly string _name;
+        private readonly double _value;
 
-        public NameExpression(string name)
+        public ValueExpression(string name)
         {
             _name = name;
+
+            _value = Value.GetValue(name.ToLower());
         } 
 
         public string GetName() { return _name; }
 
         public double Execute()
         {
-            var name = _name.ToLower();
-
-            double constant;
-            return Value.StringToConstant.TryGetValue(name, out constant) ? 
-                constant : Value.UserConstants[name];
+            return _value;
         }
 
         public void Print(StringBuilder builder)

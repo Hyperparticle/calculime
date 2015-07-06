@@ -20,7 +20,7 @@ namespace PrattParser.Tokens
         private delegate double MultiDelegate(params double[] values);
 
         // Here we are mapping TokenTypes to their respective functions. If a token 
-        // was a unary minus, I want to return the function f(x) = -x.
+        // was a unary minus, it should return the function f(x) = -x.
         private static readonly Dictionary<TokenType, UnaryDelegate> UnaryOperator =
             new Dictionary<TokenType, UnaryDelegate>
             {
@@ -136,6 +136,12 @@ namespace PrattParser.Tokens
             }
 
             return MultiFunction[function].Invoke(args);
+        }
+
+        public static bool IsFunction(string name)
+        {
+            return (UnaryFunction.ContainsKey(name) || BinaryFunction.ContainsKey(name) ||
+                    MultiFunction.ContainsKey(name) || NullaryFunction.ContainsKey(name));
         }
 
         // SPECIAL FUNCTIONS

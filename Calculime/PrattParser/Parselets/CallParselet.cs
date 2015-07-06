@@ -12,15 +12,6 @@ namespace PrattParser.Parselets
     {
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
-            //// Perform Implicit Multiplication if the left expression is not a NameExpression
-            //if (!(left is NameExpression))
-            //{
-            //    var right = parser.ParseExpression();
-            //    parser.Consume(TokenType.RightParen);
-
-            //    return new OperatorExpression(left, TokenType.Asterisk, right);
-            //}
-
             // Parse the comma-separated arguments until we hit, ")".
             var args = new List<IExpression>();
 
@@ -35,7 +26,7 @@ namespace PrattParser.Parselets
                 parser.Consume(TokenType.RightParen);
             }
 
-            return new CallExpression(left, args);
+            return new FunctionExpression(left, args);
         }
 
         public Precedence GetPrecedence()

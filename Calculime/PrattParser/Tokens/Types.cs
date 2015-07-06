@@ -26,28 +26,10 @@ namespace PrattParser.Tokens
         GreaterThan,
         BitLeft,
         BitRight,
-        Name,
+        Function,
+        Value,
         Number,
         Eof
-    }
-
-    public enum FunctionType
-    {
-        Sine,
-        Cosine,
-        Tangent,
-        Arcsine,
-        Arccosine,
-        Arctangent,
-        AbsoluteValue,
-        NaturalLog,
-        LogBase10,
-        SquareRoot,
-        Round,
-        Floor,
-        Ceiling,
-        Max,
-        Min
     }
 
     public static class Table

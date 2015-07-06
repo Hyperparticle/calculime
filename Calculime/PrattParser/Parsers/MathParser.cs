@@ -10,24 +10,18 @@ namespace PrattParser.Parsers
             // Register all of the parselets for the grammar.
 
             // Register the ones that need special parselets.
-            Register(TokenType.Name, new NameParselet());
+            Register(TokenType.Function, new FunctionParselet());
+            Register(TokenType.Value, new ValueParselet());
             Register(TokenType.Number, new NumberParselet());
             Register(TokenType.Assign, new AssignParselet());
             Register(TokenType.Question, new ConditionalParselet());
             Register(TokenType.LeftParen, new GroupParselet());
-            Register(TokenType.LeftParen, new CallParselet());
 
             // Register the simple operator parselets.
             Prefix(TokenType.Plus, Precedence.Prefix);
             Prefix(TokenType.Minus, Precedence.Prefix);
             Prefix(TokenType.Tilde, Precedence.Prefix);
             Prefix(TokenType.Bang, Precedence.Prefix);
-
-            // Implicit Multiplication
-            //Prefix(TokenType.Name, Precedence.Product);
-            //Prefix(TokenType.Number, Precedence.Product);
-            //InfixLeft(TokenType.Number, Precedence.Product);
-            //InfixLeft(TokenType.Name, Precedence.Product);
 
             // Sum and Product operators
             InfixLeft(TokenType.Plus, Precedence.Sum);
