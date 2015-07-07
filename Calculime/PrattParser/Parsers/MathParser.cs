@@ -17,6 +17,12 @@ namespace PrattParser.Parsers
             Register(TokenType.Question, new ConditionalParselet());
             Register(TokenType.LeftParen, new GroupParselet());
 
+            // Implicit multiplication
+            Implicit(TokenType.Function);
+            Implicit(TokenType.Value);
+            Implicit(TokenType.Number);
+            Implicit(TokenType.LeftParen);
+
             // Register the simple operator parselets.
             Prefix(TokenType.Plus, Precedence.Prefix);
             Prefix(TokenType.Minus, Precedence.Prefix);
@@ -78,6 +84,11 @@ namespace PrattParser.Parsers
         public void InfixRight(TokenType token, Precedence precedence)
         {
             Register(token, new BinaryOperatorParselet(precedence, true));
+        }
+
+        public void Implicit(TokenType token)
+        {
+            Register(token, new ImplicitParselet());
         }
     }
 }

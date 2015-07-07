@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using PrattParser.Exceptions;
 using PrattParser.Tokens;
 
 namespace PrattParser.Parsers
@@ -75,7 +74,11 @@ namespace PrattParser.Parsers
             {
                 while (_index < _expression.Length)
                 {
-                    if (!(char.IsDigit(_expression[_index]) || _expression[_index] == Symbol.Period)) break;
+                    var nextChar = _expression[_index];
+
+                    if (!(char.IsDigit(nextChar) || nextChar == Symbol.Period)) break;
+
+                    // TODO: Check if we have a floating point value like 1.0145e-12?
                     _index++;
                 }
             }
@@ -89,6 +92,7 @@ namespace PrattParser.Parsers
         private void ParseName()
         {
             var start = _index;
+
             while (_index < _expression.Length)
             {
                 var text = _expression[_index];
@@ -97,21 +101,33 @@ namespace PrattParser.Parsers
             }
 
             var name = _expression.Substring(start, _index - start);
+            Token token = null;
 
-            Token token;
-            if (Function.IsFunction(name))
+            // Loop backwards through the string and try to find a correct token
+            while (name.Length != 0)
             {
-                token = new Token(TokenType.Function, name);
-            }
-            else if (Value.IsValue(name))
-            {
-                token = new Token(TokenType.Value, name);
-            }
-            else
-            {
-                throw new NotImplementedException(string.Format("Token {0} not supported", name));
+                if (Function.IsFunction(name))
+                {
+                    token = new Token(TokenType.Function, name);
+                    break;
+                }
+
+                if (Value.IsValue(name))
+                {
+                    token = new Token(TokenType.Value, name);
+                    break;
+                }
+
+                _index--;
+                name = name.Substring(0, name.Length - 1);
             }
 
+            // If we've looked through all possible options, token is invalid
+            if (name.Length == 0 || token == null)
+            {
+                throw new ParseException(string.Format("Token {0} not supported", name));
+            }
+            
             _tokenList.Add(token);
         }
     }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculime", "Calculime\Calc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrattParser", "PrattParser\PrattParser.csproj", "{579C732C-6BCC-46E3-8D55-842CF465289C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculimeUnitTests", "CalculimeUnitTests\CalculimeUnitTests.csproj", "{9850C704-CE5B-4634-96C5-3803E90719E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{579C732C-6BCC-46E3-8D55-842CF465289C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{579C732C-6BCC-46E3-8D55-842CF465289C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{579C732C-6BCC-46E3-8D55-842CF465289C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9850C704-CE5B-4634-96C5-3803E90719E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9850C704-CE5B-4634-96C5-3803E90719E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9850C704-CE5B-4634-96C5-3803E90719E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9850C704-CE5B-4634-96C5-3803E90719E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

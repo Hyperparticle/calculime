@@ -22,11 +22,6 @@ namespace PrattParser.Parselets
 
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
-            //if (token.GetTokenType() == TokenType.Number)
-            //{
-            //    return new OperatorExpression(left, TokenType.Asterisk, parser.ParseExpression());
-            //}
-
             // To handle right-associative operators like "^", we allow a slightly
             // lower precedence when parsing the right-hand side. This will let a
             // parselet with the same precedence appear on the right, which will then

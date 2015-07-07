@@ -19,10 +19,11 @@ namespace PrattParser.Tokens
                 {"gamma", Constants.EulerMascheroni}
             };
 
-        public static readonly Dictionary<string, double> UserConstants = new Dictionary<string, double>();
+        private static readonly Dictionary<string, double> UserConstants = new Dictionary<string, double>();
 
         public static bool IsValue(string name)
         {
+            name = name.ToLower();
             return (StringToConstant.ContainsKey(name) || UserConstants.ContainsKey(name));
         }
 
@@ -36,6 +37,19 @@ namespace PrattParser.Tokens
                 return value;
 
             throw new NotImplementedException(string.Format("The value {0} is not implemented.", name));
+        }
+
+        public static void SetUserValue(string name, double value)
+        {
+            if (UserConstants.ContainsKey(name))
+                UserConstants.Remove(name);
+
+            UserConstants.Add(name, value);
+        }
+
+        public static void ClearUserValues()
+        {
+            UserConstants.Clear();
         }
     }
 }

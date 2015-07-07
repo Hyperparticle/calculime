@@ -54,27 +54,20 @@ namespace PrattParser.Tokens
         private static readonly Dictionary<string, UnaryDelegate> UnaryFunction =
             new Dictionary<string, UnaryDelegate>
             {
-                {"sin", Math.Sin},
-                {"cos", Math.Cos},
-                {"tan", Math.Tan},
-                {"asin", Math.Asin},
-                {"acos", Math.Acos},
-                {"atan", Math.Atan},
-                {"sinh", Math.Sinh},
-                {"cosh", Math.Cosh},
-                {"tanh", Math.Tanh},
-                {"abs", Math.Abs},
-                {"ln", Math.Log},
-                {"log", Math.Log},
-                {"log10", Math.Log10},
-                {"sqrt", Math.Sqrt},
-                {"round", Math.Round},
-                {"floor", Math.Floor},
-                {"ceil", Math.Ceiling},
+                {"sin", Math.Sin},          {"cos", Math.Cos},      {"tan", Math.Tan},
+                {"asin", Math.Asin},        {"acos", Math.Acos},    {"atan", Math.Atan},
+                {"arcsin", Math.Asin},      {"arccos", Math.Acos},  {"arctan", Math.Atan},
+                {"sinh", Math.Sinh},        {"cosh", Math.Cosh},    {"tanh", Math.Tanh},
+
+                {"degtorad", Trig.DegreeToRadian}, {"radtodeg", Trig.RadianToDegree},
+
+                {"abs", Math.Abs},      {"sqrt", Math.Sqrt},
+                {"ln", Math.Log},       {"log", Math.Log},          {"log10", Math.Log10},
+                
+                {"round", Math.Round},  {"floor", Math.Floor},      {"ceil", Math.Ceiling},
                 {"ceiling", Math.Ceiling},
-                {"prev", Memory.GetResult},
-                {"degtorad", Trig.DegreeToRadian},
-                {"radtodeg", Trig.RadianToDegree}
+
+                {"prev", Memory.GetResult}
             };
 
         private static readonly Dictionary<string, BinaryDelegate> BinaryFunction =
@@ -140,6 +133,8 @@ namespace PrattParser.Tokens
 
         public static bool IsFunction(string name)
         {
+            name = name.ToLower();
+
             return (UnaryFunction.ContainsKey(name) || BinaryFunction.ContainsKey(name) ||
                     MultiFunction.ContainsKey(name) || NullaryFunction.ContainsKey(name));
         }

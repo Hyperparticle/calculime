@@ -30,7 +30,7 @@
             Space = ' ',
             Zero = '0',
             One = '1',
-            E = 'E';
+            E = 'e';
 
         public const string 
             Empty = "";

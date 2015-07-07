@@ -55,21 +55,13 @@ namespace PrattParser.Parsers
             // An enumerator is used, so precedence will change based on current position
             while (precedence < GetPrecedence())
             {
-                token = NextToken();
+                token = LookAhead();
 
                 var infix = _infixParselets[token.GetTokenType()];
-
+                if (!(infix is ImplicitParselet)) NextToken();      // Make sure we don't read the next token if implicit
+                
                 left = infix.Parse(this, left, token);
             }
-
-            //// If the next token is not an infix operator, perform implicit multiplication
-            //var prev = token.GetTokenType();
-            //var next = LookAhead().GetTokenType();
-            //if (prev == TokenType.Number || prev == TokenType.Name || )
-            //{
-            //    var infix = _infixParselets[TokenType.Asterisk];
-            //    left = infix.Parse(this, left, Token.Product());
-            //}
 
             return left;
         }

@@ -52,6 +52,7 @@
     <Compile Include="Parselets\ConditionalParselet.cs" />
     <Compile Include="Parselets\GroupParselet.cs" />
     <Compile Include="Parselets\IInfixParselet.cs" />
+    <Compile Include="Parselets\ImplicitParselet.cs" />
     <Compile Include="Parselets\IPrefixParselet.cs" />
     <Compile Include="Parselets\ValueParselet.cs" />
     <Compile Include="Parselets\NumberParselet.cs" />
