@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using PrattParser.Tokens;
 
 namespace PrattParser
@@ -17,9 +13,14 @@ namespace PrattParser
             Results.Add(result);
         }
 
+        public static double GetResult()
+        {
+            return GetResult(0);
+        }
+
         public static double GetResult(double index)
         {
-            var i = (int) index + 1;
+            var i = (int)index + 1;
 
             if (i > 0 && i <= Results.Count)
             {

@@ -19,10 +19,10 @@ namespace PrattParser.Expressions
             _args = args;
         }
 
-        public double Execute()
+        public double Calculate()
         {
-            // Execute all arguments before proceeding
-            var args = _args.Select(x => x.Execute()).ToArray();
+            // Calculate all arguments before proceeding
+            var args = _args.Select(x => x.Calculate()).ToArray();
 
             return Function.Execute(_functionName.ToLower(), args);
         }

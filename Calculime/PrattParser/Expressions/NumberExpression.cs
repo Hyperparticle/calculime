@@ -38,7 +38,7 @@ namespace PrattParser.Expressions
         public string GetName() { return _name; }
         public double GetValue() { return _value; }
 
-        public double Execute()
+        public double Calculate()
         {
             return _value;
         }

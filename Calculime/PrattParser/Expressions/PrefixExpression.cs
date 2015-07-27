@@ -17,9 +17,9 @@ namespace PrattParser.Expressions
             _right = right;
         }
 
-        public double Execute()
+        public double Calculate()
         {
-            return Function.Execute(_operator, _right.Execute());
+            return Function.Execute(_operator, _right.Calculate());
         }
 
         public void Print(StringBuilder builder)

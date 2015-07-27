@@ -8,9 +8,9 @@ namespace PrattParser.Expressions
     public interface IExpression
     {
         /**
-         * Execute the expression and return a result
+         * Calculate the expression and return a result
          */
-        double Execute();
+        double Calculate();
 
         /**
          * Pretty-print the expression to a string.

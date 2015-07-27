@@ -13,32 +13,26 @@ namespace PrattParser.Parsers
     /// </summary>
     public class Parser
     {
-        //private IEnumerator<Token> _tokens;     // Will iterate through the string expression
-        //private List<Token> _read;              // A queue to read in characters
-        private List<Token> _tokenList; 
-        private int _index;
+        protected string Expression;       // The expression to parse
 
+        private List<Token> _tokenList;     // A list of all tokens in the expression
+        private int _index;                 // The current index of the token list
+
+        // Keep Dictionaries (Hash Maps) to map tokens to their respective parselet
         private readonly Dictionary<TokenType, IPrefixParselet> _prefixParselets =
             new Dictionary<TokenType, IPrefixParselet>();
         private readonly Dictionary<TokenType, IInfixParselet> _infixParselets =
             new Dictionary<TokenType, IInfixParselet>();
 
-        public void Register(TokenType token, IPrefixParselet parselet)
+        public Expression ParseExpression(string expression)
         {
-            _prefixParselets[token] = parselet;
-        }
+            Expression = expression;
 
-        public void Register(TokenType token, IInfixParselet parselet)
-        {
-            _infixParselets[token] = parselet;
-        }
-
-        public IExpression ParseExpression(string expression)
-        {
             var lexer = new MathLexer(expression);
             _tokenList = lexer.GetTokens();
             _index = 0;
-            return ParseExpression();
+
+            return new Expression(expression, ParseExpression());
         }
 
         public IExpression ParseExpression(Precedence precedence = 0)
@@ -68,7 +62,7 @@ namespace PrattParser.Parsers
 
         public double Execute(string expression)
         {
-            return ParseExpression(expression).Execute();
+            return ParseExpression(expression).Calculate();
         }
 
         public bool Match(TokenType expected)
@@ -96,10 +90,10 @@ namespace PrattParser.Parsers
             return _tokenList[_index++];
         }
 
-        public Token Revert()
-        {
-            return _tokenList[--_index];
-        }
+        //public Token Revert()
+        //{
+        //    return _tokenList[--_index];
+        //}
 
         private Token LookAhead(int distance = 0)
         {
@@ -117,6 +111,16 @@ namespace PrattParser.Parsers
 
             return (_infixParselets.TryGetValue(type, out parselet))
                 ? parselet.GetPrecedence() : 0;
+        }
+
+        public void Register(TokenType token, IPrefixParselet parselet)
+        {
+            _prefixParselets[token] = parselet;
+        }
+
+        public void Register(TokenType token, IInfixParselet parselet)
+        {
+            _infixParselets[token] = parselet;
         }
     }
 }

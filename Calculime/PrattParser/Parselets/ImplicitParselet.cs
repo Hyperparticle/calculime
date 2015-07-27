@@ -4,6 +4,10 @@ using PrattParser.Tokens;
 
 namespace PrattParser.Parselets
 {
+    /// <summary>
+    /// A parselet for parsing implicit operations, i.e. multiplication, like 2pi.
+    /// Can be configured for other types of operations.
+    /// </summary>
     public class ImplicitParselet : IInfixParselet
     {
         private const Precedence ImplicitPrecedence = Precedence.Product;

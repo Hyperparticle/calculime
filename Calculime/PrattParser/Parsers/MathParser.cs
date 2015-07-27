@@ -17,7 +17,7 @@ namespace PrattParser.Parsers
             Register(TokenType.Question, new ConditionalParselet());
             Register(TokenType.LeftParen, new GroupParselet());
 
-            // Implicit multiplication
+            // Implicit multiplication operations
             Implicit(TokenType.Function);
             Implicit(TokenType.Value);
             Implicit(TokenType.Number);
@@ -32,7 +32,6 @@ namespace PrattParser.Parsers
             // Sum and Product operators
             InfixLeft(TokenType.Plus, Precedence.Sum);
             InfixLeft(TokenType.Minus, Precedence.Sum);
-
             InfixLeft(TokenType.Asterisk, Precedence.Product);
             InfixLeft(TokenType.Slash, Precedence.Product);
             InfixLeft(TokenType.Percent, Precedence.Product);

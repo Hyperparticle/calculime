@@ -48,8 +48,7 @@ namespace PrattParser.Tokens
         private static readonly Dictionary<string, NullaryDelegate> NullaryFunction =
             new Dictionary<string, NullaryDelegate>
             {
-                {"rand", Rand.NextDouble},
-                {"prev", Memory.GetResult}
+                {"rand", Rand.NextDouble}
             };
 
         private static readonly Dictionary<string, UnaryDelegate> UnaryFunction =

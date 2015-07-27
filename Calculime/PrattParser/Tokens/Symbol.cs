@@ -1,7 +1,7 @@
 ﻿namespace PrattParser.Tokens
 {
     /// <summary>
-    /// Contains definitions for common symbols
+    /// Contains definitions for common symbols.
     /// </summary>
     public class Symbol
     {

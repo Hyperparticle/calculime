@@ -100,6 +100,7 @@ namespace PrattParser.Parsers
                 _index++;
             }
 
+            var end = _index;
             var name = _expression.Substring(start, _index - start);
             Token token = null;
 
@@ -125,6 +126,7 @@ namespace PrattParser.Parsers
             // If we've looked through all possible options, token is invalid
             if (name.Length == 0 || token == null)
             {
+                name = _expression.Substring(start, end - start);
                 throw new ParseException(string.Format("Token {0} not supported", name));
             }
             

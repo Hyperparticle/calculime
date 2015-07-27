@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Expressions\AssignExpression.cs" />
+    <Compile Include="Expressions\Expression.cs" />
     <Compile Include="Expressions\FunctionExpression.cs" />
     <Compile Include="Expressions\ConditionalExpression.cs" />
     <Compile Include="Expressions\IExpression.cs" />

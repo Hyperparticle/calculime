@@ -17,7 +17,7 @@ namespace PrattParser.Expressions
             _right = right;
         }
 
-        public double Execute()
+        public double Calculate()
         {
             throw new NotImplementedException();
         }
